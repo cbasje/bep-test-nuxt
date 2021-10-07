@@ -61,56 +61,61 @@
               flex
               items-center
               justify-end
-              p-6
+              p-5
               border-t border-solid border-gray-200
               rounded-b
             "
           >
             <button
               class="
-                text-purple-500
-                background-transparent
-                font-bold
-                uppercase
-                px-6
+                inline-flex
+                justify-center
                 py-2
+                px-4
+                border border-transparent
+                shadow-sm
                 text-sm
-                outline-none
+                font-medium
+                rounded-md
+                text-indigo-700
+                background-transparent
+                hover:bg-gray-100
                 focus:outline-none
-                mr-1
-                mb-1
-                ease-linear
-                transition-all
-                duration-150
+                focus:ring-2
+                focus:ring-offset-2
+                focus:ring-indigo-500
+                mr-2
               "
-
-              @click="$emit('close', false); toggleModal()"
+              @click="
+                $emit('close', false)
+                toggleModal()
+              "
             >
               Close
             </button>
             <button
               class="
-                bg-purple-500
-                text-white
-                active:bg-purple-600
-                font-bold
-                uppercase
-                text-xs
-                px-4
+                inline-flex
+                justify-center
                 py-2
-                rounded
-                shadow
-                hover:shadow-md
-                outline-none
+                px-4
+                border border-transparent
+                shadow-sm
+                text-sm
+                font-medium
+                rounded-md
+                text-white
+                bg-indigo-600
+                hover:bg-indigo-700
                 focus:outline-none
-                mr-1
-                mb-1
-                ease-linear
-                transition-all
-                duration-150
+                focus:ring-2
+                focus:ring-offset-2
+                focus:ring-indigo-500
               "
-
-              @click="$emit('close', true); toggleModal()"
+              @click="
+                $emit('close', true)
+                toggleModal()
+              "
             >
               Save Changes
             </button>
@@ -135,9 +140,13 @@ export default {
   methods: {
     toggleModal() {
       document.getElementById(this.modalID).classList.toggle('hidden')
-      document.getElementById(this.modalID + '-backdrop').classList.toggle('hidden')
+      document
+        .getElementById(this.modalID + '-backdrop')
+        .classList.toggle('hidden')
       document.getElementById(this.modalID).classList.toggle('flex')
-      document.getElementById(this.modalID + '-backdrop').classList.toggle('flex')
+      document
+        .getElementById(this.modalID + '-backdrop')
+        .classList.toggle('flex')
     },
   },
 }
