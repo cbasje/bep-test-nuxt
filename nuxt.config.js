@@ -29,6 +29,7 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/dotenv'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -38,6 +39,11 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     'nuxt-leaflet',
+
+    ['nuxt-supabase', {
+      supabaseUrl: process.env.VUE_APP_SUPABASE_URL,
+      supabaseKey: process.env.VUE_APP_SUPABASE_KEY
+    }]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

@@ -1,0 +1,6 @@
+{
+	"appId": "org.thegreenvillage.heatcitymap",
+	"appName": "Heat City Map",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

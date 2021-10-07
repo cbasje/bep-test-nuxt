@@ -1,9 +1,16 @@
 <template>
-  <Tutorial/>
+  <!-- <Tutorial/> -->
+  <Map :markers="markers" />
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
+export default {
+  async asyncData({ $supabase }) {
+    const { body } = await $supabase.from('locations').select('*')
 
-export default Vue.extend({})
+    return {
+      markers: body,
+    }
+  },
+}
 </script>
