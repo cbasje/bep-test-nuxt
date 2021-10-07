@@ -73,7 +73,7 @@
                 py-2
                 px-4
                 border border-transparent
-                shadow-sm
+                hover:shadow-sm
                 text-sm
                 font-medium
                 rounded-md
