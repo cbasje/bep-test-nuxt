@@ -3,7 +3,7 @@
     <client-only>
       <l-map
         :zoom="zoom"
-        :center="center"
+        :center="location"
         :options="{ zoomControl: false, attributionControl: false }"
       >
         <l-tile-layer :url="tileUrl" :attribution="attribution" />
@@ -26,9 +26,14 @@
 <script>
 // import Vue from 'vue'
 // import { MapMarker } from '~/types/map-marker'
+import L from 'leaflet'
 
 export default {
-  props: { markers: { type: Array, default: () => [] } },
+  props: {
+    location: L.LatLng,
+    zoom: { type: Number, default: 8 },
+    markers: { type: Array, default: () => [] },
+  },
   data() {
     return {
       username: 'benjamiin',
@@ -36,8 +41,6 @@ export default {
       accessToken: process.env.VUE_APP_MAPBOX_TOKEN,
       attribution:
         'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      center: [52.175982, 5.645263],
-      zoom: 8,
       icon: L.icon({
         iconUrl: require('~/assets/leaf-green.png'),
         iconSize: [38, 95],

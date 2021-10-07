@@ -1,16 +1,130 @@
 <template>
-  <!-- <Tutorial/> -->
-  <Map :markers="markers" />
+  <main>
+    <!-- <Tutorial/> -->
+    <Map :location="location" :zoom="zoom" :markers="markers" class="absolute inset-0 z-0" />
+    <Popup
+      class="absolute inset-x-0 bottom-0 z-50"
+      @close="closeModal($event)"
+      @locate="locateUser()"
+    >
+      <template #content>
+        <!--header-->
+        <div
+          class="
+            flex
+            items-start
+            justify-between
+            p-5
+            border-b border-solid border-gray-200
+            rounded-t
+          "
+        >
+          <h3 class="text-3xl font-semibold">Modal Title</h3>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+          <p class="my-4 text-gray-500 text-lg leading-relaxed">
+            I always felt like I could do anything. That’s the main thing people
+            are controlled by! Thoughts- their perception of themselves! They're
+            slowed down by their perception of themselves. If you're taught you
+            can’t do anything, you won’t do anything. I was taught I could do
+            everything.
+          </p>
+        </div>
+      </template>
+    </Popup>
+  </main>
 </template>
 
-<script>
-export default {
-  async asyncData({ $supabase }) {
-    const { body } = await $supabase.from('locations').select('*')
+<script lang="ts">
+import Vue from 'vue'
+import { mapGetters, mapMutations } from 'vuex'
+import L from 'leaflet'
+import { MapMarker } from '~/types/map-marker'
 
+export default Vue.extend({
+  data() {
     return {
-      markers: body,
+      gettingLocation: false,
+      errorStr: '',
+      location: L.latLng(52.175982, 5.645263),
+      zoom: 8
     }
   },
-}
+  computed: {
+    ...mapGetters('markers', {
+      markers: 'getMarkers',
+    }),
+  },
+  mounted() {
+    this.getMarkersFromDatabase()
+  },
+  // async asyncData({ $supabase }) {
+  //   const { body } = await $supabase.from<MapMarker>('locations').select('*')
+  //   this.addMarkers(body)
+
+  //   return {
+  //     // markers: body,
+  //   }
+  // },
+  methods: {
+    async getMarkersFromDatabase() {
+      const { body } = await this.$supabase
+        .from<MapMarker>('locations')
+        .select('*')
+      this.addMarkers(body)
+    },
+    getLocation() {
+      return new Promise<L.LatLng>((resolve, reject) => {
+        if (!('geolocation' in navigator)) {
+          reject(new Error('Geolocation is not available.'))
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            resolve(L.latLng(pos.coords.latitude, pos.coords.longitude))
+          },
+          (err) => {
+            reject(err)
+          },
+          { enableHighAccuracy: true }
+        )
+      })
+    },
+    async locateUser() {
+      this.gettingLocation = true
+      try {
+        this.gettingLocation = false
+        this.location = await this.getLocation()
+        this.zoom = 19
+        console.log(this.location.lat, this.location.lng)
+      } catch (e) {
+        this.gettingLocation = false
+        this.errorStr = e.message
+        console.log(e)
+      }
+    },
+    async closeModal(e: Event) {
+      // If clicked 'Save'
+      if (e) {
+        const { data, error } = await this.$supabase
+          .from<MapMarker>('locations')
+          .insert([
+            {
+              title: 'Test locatie',
+              latitude: 52,
+              longitude: 4,
+            },
+          ])
+
+        console.log(data, error)
+
+        this.addMarkers(data)
+      }
+    },
+    ...mapMutations('markers', {
+      addMarkers: 'addMultiple',
+    }),
+  },
+})
 </script>

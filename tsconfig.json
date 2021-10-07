@@ -15,7 +15,13 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node", "nuxt-leaflet"]
+    "types": [
+      "@nuxt/types",
+      "@nuxtjs/axios",
+      "@types/node",
+      "nuxt-leaflet",
+      "nuxt-supabase"
+    ]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }

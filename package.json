@@ -9,11 +9,13 @@
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
-    "generate-capacitor": "nuxt generate --no-ssr && npx cap copy"
+    "capacitor-build": "nuxt generate --no-ssr && npx cap copy",
+    "capacitor-sync": "npx cap sync"
   },
   "dependencies": {
     "@capacitor/cli": "^3.2.4",
     "@capacitor/core": "^3.2.4",
+    "@capacitor/geolocation": "^1.1.0",
     "@capacitor/ios": "^3.2.4",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/dotenv": "^1.4.1",
@@ -22,11 +24,12 @@
     "core-js": "^3.15.1",
     "nuxt": "^2.15.7",
     "nuxt-leaflet": "^0.0.25",
-    "nuxt-supabase": "^2.1.0"
+    "nuxt-supabase": "^2.1.0",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
-    "@nuxt/types": "^2.15.7",
+    "@nuxt/types": "^2.15.8",
     "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config-typescript": "^6.0.1",
     "@nuxtjs/eslint-module": "^3.0.2",
