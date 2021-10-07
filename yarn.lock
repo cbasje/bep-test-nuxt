@@ -948,6 +948,11 @@
   dependencies:
     tslib "^2.1.0"
 
+"@capacitor/device@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/device/-/device-1.0.3.tgz#32494fb7789ea6a4338526d785760c8e865a58be"
+  integrity sha512-u209KTay2KaIrbMZuGSpTBmzyWkCO7en5zwV1a75//3YPBbjls4/T0Dgk5qKRAk6dXke5wF+0btsen8bm4jvsA==
+
 "@capacitor/geolocation@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@capacitor/geolocation/-/geolocation-1.1.0.tgz#0f514472240d1bcf81d86b095d6df0d44a8d7268"

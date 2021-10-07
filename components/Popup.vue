@@ -1,28 +1,5 @@
 <template>
   <div>
-    <button
-      class="
-        bg-purple-500
-        text-white
-        active:bg-purple-600
-        font-bold
-        uppercase
-        text-sm
-        px-6
-        py-3
-        rounded
-        mx-auto
-        hover:shadow-lg
-        outline-none
-        focus:outline-none
-        ease-linear
-        transition-all
-        duration-150
-      "
-      @click="$emit('locate')"
-    >
-      Locate
-    </button>
     <!-- Button trigger modal -->
     <button
       class="

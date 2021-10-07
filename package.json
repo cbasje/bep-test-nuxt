@@ -15,6 +15,7 @@
   "dependencies": {
     "@capacitor/cli": "^3.2.4",
     "@capacitor/core": "^3.2.4",
+    "@capacitor/device": "^1.0.3",
     "@capacitor/geolocation": "^1.1.0",
     "@capacitor/ios": "^3.2.4",
     "@nuxtjs/axios": "^5.13.6",

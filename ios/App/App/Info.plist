@@ -28,7 +28,9 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>De locatie wordt gebruikt om je feedback te koppelen aan je locatie</string>
+	<string>De locatie wordt gebruikt om je feedback te koppelen aan je locatie, vrienden in de buurt te vinden en routes te plannen</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>De locatie wordt gebruikt om je feedback te koppelen aan je locatie, vrienden in de buurt te vinden en routes te plannen</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
