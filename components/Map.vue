@@ -7,7 +7,7 @@
         :options="{ zoomControl: false, attributionControl: false }"
       >
         <l-tile-layer :url="tileUrl" :attribution="attribution" />
-        <l-control-zoom position="bottomright" />
+        <l-control-zoom v-if="$device.isMobile" position="bottomright" />
         <!-- TODO -->
         <l-control-attribution position="topright" />
 

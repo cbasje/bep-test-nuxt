@@ -16,30 +16,13 @@
           <option value="dark">Dark</option>
         </select>
       </div>
-      <button
+      <modal-button
         v-if="$device.isMobile"
-        class="
-          bg-purple-500
-          text-white
-          active:bg-purple-600
-          font-bold
-          uppercase
-          text-sm
-          px-6
-          py-3
-          rounded
-          mx-auto
-          hover:shadow-lg
-          outline-none
-          focus:outline-none
-          ease-linear
-          transition-all
-          duration-150
-        "
+        :is-filled="true"
         @click="locateUser()"
       >
         Locate
-      </button>
+      </modal-button>
 
       <Popup @close="closeModal($event)">
         <template #content>
@@ -224,11 +207,12 @@ import L from 'leaflet'
 // FIXME
 // eslint-disable-next-line import/named
 import { Geolocation, Position } from '@capacitor/geolocation'
-import { SafeArea } from 'capacitor-plugin-safe-area'
 
 import { MapMarker } from '~/types/map-marker'
+import ModalButton from '~/components/ModalButton.vue'
 
 export default Vue.extend({
+  components: { ModalButton },
   data() {
     return {
       gettingLocation: false,
@@ -245,37 +229,8 @@ export default Vue.extend({
   },
   mounted() {
     this.getMarkersFromDatabase()
-
-    this.setSafeAreaInsets()
   },
   methods: {
-    async setSafeAreaInsets() {
-      const { insets } = await SafeArea.getSafeAreaInsets()
-
-      // FIXME
-      // for (const inset in insets) {
-      //   document.documentElement.style.setProperty(
-      //     `--safe-area-inset-${inset}`,
-      //     `${insets[`inset`]}px`
-      //   )
-      // }
-      document.documentElement.style.setProperty(
-        `--safe-area-inset-top`,
-        `${insets.top}px`
-      )
-      document.documentElement.style.setProperty(
-        `--safe-area-inset-right`,
-        `${insets.right}px`
-      )
-      document.documentElement.style.setProperty(
-        `--safe-area-inset-bottom`,
-        `${insets.bottom}px`
-      )
-      document.documentElement.style.setProperty(
-        `--safe-area-inset-left`,
-        `${insets.left}px`
-      )
-    },
     async getMarkersFromDatabase() {
       const { body } = await this.$supabase
         .from<MapMarker>('locations')

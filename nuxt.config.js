@@ -33,6 +33,7 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/device',
     '@nuxtjs/svg',
+    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -76,4 +77,12 @@ export default {
     preference: 'system',
     classSuffix: '',
   },
+
+  // Moment module
+  moment: {
+    defaultLocale: 'nl',
+    locales: ['nl'],
+    timezone: true,
+    defaultTimezone: 'Europe/Amsterdam'
+  }
 }

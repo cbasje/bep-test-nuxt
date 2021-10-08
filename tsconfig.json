@@ -22,7 +22,8 @@
       "nuxt-leaflet",
       "nuxt-supabase",
       "@nuxtjs/color-mode",
-      "@nuxtjs/device"
+      "@nuxtjs/device",
+      "@nuxtjs/moment"
     ]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]

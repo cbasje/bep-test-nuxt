@@ -1,29 +1,9 @@
 <template>
   <div>
     <!-- Button trigger modal -->
-    <button
-      class="
-        bg-purple-500
-        text-white
-        active:bg-purple-600
-        font-bold
-        uppercase
-        text-sm
-        px-6
-        py-3
-        rounded
-        mx-auto
-        hover:shadow-lg
-        outline-none
-        focus:outline-none
-        ease-linear
-        transition-all
-        duration-150
-      "
-      @click="toggleModal()"
+    <modal-button :is-filled="true" @click="toggleModal()"
+      >Open Popup</modal-button
     >
-      Open Popup
-    </button>
     <!-- Modal -->
     <div
       id="modal-regular"
@@ -82,61 +62,25 @@
               rounded-b
             "
           >
-            <button
-              class="
-                inline-flex
-                justify-center
-                py-2
-                px-4
-                border border-transparent
-                hover:shadow-sm
-                text-sm
-                font-medium
-                rounded-md
-                text-indigo-700
-                dark:text-indigo-500
-                background-transparent
-                hover:bg-gray-100
-                dark:hover:bg-gray-800
-                focus:outline-none
-                focus:ring-2
-                focus:ring-offset-2
-                focus:ring-indigo-500
-                mr-2
-              "
+            <modal-button
+              :is-filled="false"
+              class="mr-2"
               @click="
                 $emit('close', false)
                 toggleModal()
               "
             >
               Close
-            </button>
-            <button
-              class="
-                inline-flex
-                justify-center
-                py-2
-                px-4
-                border border-transparent
-                shadow-sm
-                text-sm
-                font-medium
-                rounded-md
-                text-white
-                bg-indigo-600
-                hover:bg-indigo-700
-                focus:outline-none
-                focus:ring-2
-                focus:ring-offset-2
-                focus:ring-indigo-500
-              "
+            </modal-button>
+            <modal-button
+              :is-filled="true"
               @click="
                 $emit('close', true)
                 toggleModal()
               "
             >
               Save Changes
-            </button>
+            </modal-button>
           </div>
         </div>
       </div>
@@ -148,8 +92,12 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import ModalButton from '~/components/ModalButton.vue'
+
+export default Vue.extend({
+  components: { ModalButton },
   data() {
     return {
       modalID: 'modal-regular',
@@ -157,15 +105,16 @@ export default {
   },
   methods: {
     toggleModal() {
-      document.getElementById(this.modalID).classList.toggle('hidden')
-      document
-        .getElementById(this.modalID + '-backdrop')
-        .classList.toggle('hidden')
-      document.getElementById(this.modalID).classList.toggle('flex')
-      document
-        .getElementById(this.modalID + '-backdrop')
-        .classList.toggle('flex')
+      const modal = document.getElementById(this.modalID)
+      const modalBackdrop = document.getElementById(this.modalID + '-backdrop')
+
+      if (modal == null || modalBackdrop == null) return
+
+      modal.classList.toggle('hidden')
+      modalBackdrop.classList.toggle('hidden')
+      modal.classList.toggle('flex')
+      modalBackdrop.classList.toggle('flex')
     },
   },
-}
+})
 </script>
