@@ -23,12 +23,12 @@
   </div>
 </template>
 
-<script>
-// import Vue from 'vue'
-// import { MapMarker } from '~/types/map-marker'
+<script lang="ts">
+import Vue from 'vue'
 import L from 'leaflet'
+import { MapMarker } from '~/types/map-marker'
 
-export default {
+export default Vue.extend({
   props: {
     location: L.LatLng,
     zoom: { type: Number, default: 8 },
@@ -38,7 +38,6 @@ export default {
     return {
       username: 'benjamiin',
       styleId: 'ckud8w32h00ju17pmqbkh7x0u',
-      accessToken: process.env.VUE_APP_MAPBOX_TOKEN,
       attribution:
         'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       icon: L.icon({
@@ -51,20 +50,21 @@ export default {
   },
   computed: {
     tileUrl() {
-      return `https://api.mapbox.com/styles/v1/${this.username}/${this.styleId}/tiles/{z}/{x}/{y}?access_token=${this.accessToken}`
+      const accessToken = process.env.VUE_APP_MAPBOX_TOKEN;
+      return `https://api.mapbox.com/styles/v1/${this.username}/${this.styleId}/tiles/{z}/{x}/{y}?access_token=${accessToken}`
     },
   },
   methods: {
-    clickMarker(marker) {
+    clickMarker(marker: MapMarker) {
       const currentTimestamp = Date.now()
       if (currentTimestamp - this.timestamp > 100) this.alertClickMarker(marker)
       this.timestamp = Date.now()
     },
-    alertClickMarker(marker) {
+    alertClickMarker(marker: MapMarker) {
       alert(`Clicked marker ${marker.id}!`)
     },
   },
-}
+})
 </script>
 
 <style>
