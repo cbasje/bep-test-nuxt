@@ -60,10 +60,11 @@
       </modal-button>
 
       <!-- Button trigger modal -->
-      <modal-button v-show="showMarkerPopup" :is-filled="true">
+      <modal-button :is-filled="true" @click="showMarkerPopup = true">
         Open Popup
       </modal-button>
       <popup
+        v-show="showMarkerPopup"
         save-button="true"
         @close="
           closeModal($event)
