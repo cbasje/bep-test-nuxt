@@ -28,13 +28,13 @@
         <template #content>
           <!--body-->
           <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form id="submitForm" @submit.prevent>
               <div class="sm:overflow-hidden">
                 <div class="px-4 py-5 space-y-6 sm:p-6">
                   <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-6 sm:col-span-3">
                       <label
-                        for="first-name"
+                        for="title"
                         class="
                           block
                           text-sm
@@ -46,10 +46,9 @@
                         Titel
                       </label>
                       <input
-                        id="first-name"
+                        id="title"
+                        v-model="title"
                         type="text"
-                        name="first-name"
-                        autocomplete="given-name"
                         class="
                           mt-1
                           focus:ring-indigo-500 focus:border-indigo-500
@@ -69,7 +68,7 @@
 
                   <div>
                     <label
-                      for="about"
+                      for="note"
                       class="
                         block
                         text-sm
@@ -82,8 +81,8 @@
                     </label>
                     <div class="mt-1">
                       <textarea
-                        id="about"
-                        name="about"
+                        id="note"
+                        v-model="note"
                         rows="3"
                         class="
                           shadow-sm
@@ -215,6 +214,8 @@ export default Vue.extend({
   components: { ModalButton },
   data() {
     return {
+      title: '',
+      note: '',
       gettingLocation: false,
       errorStr: '',
       location: L.latLng(52.175982, 5.645263),
@@ -237,23 +238,6 @@ export default Vue.extend({
         .select('*')
       this.addMarkers(body)
     },
-    getLocation() {
-      return new Promise<L.LatLng>((resolve, reject) => {
-        if (!('geolocation' in navigator)) {
-          reject(new Error('Geolocation is not available.'))
-        }
-
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            resolve(L.latLng(pos.coords.latitude, pos.coords.longitude))
-          },
-          (err) => {
-            reject(err)
-          },
-          { enableHighAccuracy: true }
-        )
-      })
-    },
     async locateUser() {
       await Geolocation.getCurrentPosition()
         .then((pos: Position) => {
@@ -265,23 +249,33 @@ export default Vue.extend({
           console.error(error.message)
         })
     },
-    async closeModal(event: Event) {
+    closeModal(event: Event) {
       // If clicked 'Save'
       if (event) {
-        const { data, error } = await this.$supabase
-          .from<MapMarker>('locations')
-          .insert([
-            {
-              title: 'Test locatie',
-              latitude: 52,
-              longitude: 4,
-            },
-          ])
+        this.locateUser().then(() => {
+          this.$supabase
+            .from<MapMarker>('locations')
+            .insert([
+              {
+                title: this.title,
+                note: this.note,
+                latitude: this.location.lat,
+                longitude: this.location.lng,
+              },
+            ])
+            .then(
+              (data) => {
+                this.addMarkers(data)
 
-        // eslint-disable-next-line no-console
-        if (error) console.error(error.message)
-
-        this.addMarkers(data)
+                this.title = ''
+                this.note = ''
+              },
+              (error) => {
+                // eslint-disable-next-line no-console
+                console.error(error.message)
+              }
+            )
+        })
       }
     },
     ...mapMutations('markers', {
