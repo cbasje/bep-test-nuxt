@@ -1,10 +1,8 @@
 <template>
   <div>
-    <!-- Modal -->
     <div
-      id="modal-regular"
       class="
-        hidden
+        flex
         overflow-x-hidden overflow-y-auto
         fixed
         inset-0
@@ -87,7 +85,6 @@
       </div>
     </div>
     <div
-      id="modal-regular-backdrop"
       class="opacity-50 fixed inset-0 z-40 bg-black"
     ></div>
   </div>
