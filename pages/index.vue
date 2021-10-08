@@ -14,7 +14,6 @@
           <option value="system">System</option>
           <option value="light">Light</option>
           <option value="dark">Dark</option>
-          <option value="sepia">Sepia</option>
         </select>
       </div>
       <button
@@ -222,6 +221,8 @@ import Vue from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
 
 import L from 'leaflet'
+// FIXME
+// eslint-disable-next-line import/named
 import { Geolocation, Position } from '@capacitor/geolocation'
 import { SafeArea } from 'capacitor-plugin-safe-area'
 
@@ -259,23 +260,21 @@ export default Vue.extend({
       //   )
       // }
       document.documentElement.style.setProperty(
-          `--safe-area-inset-top`,
-          `${insets.top}px`
-        )
+        `--safe-area-inset-top`,
+        `${insets.top}px`
+      )
       document.documentElement.style.setProperty(
-          `--safe-area-inset-right`,
-          `${insets.right}px`
-        )
+        `--safe-area-inset-right`,
+        `${insets.right}px`
+      )
       document.documentElement.style.setProperty(
-          `--safe-area-inset-bottom`,
-          `${insets.bottom}px`
-        )
+        `--safe-area-inset-bottom`,
+        `${insets.bottom}px`
+      )
       document.documentElement.style.setProperty(
-          `--safe-area-inset-left`,
-          `${insets.left}px`
-        )
-
-      console.log(`Insets: ${insets}`)
+        `--safe-area-inset-left`,
+        `${insets.left}px`
+      )
     },
     async getMarkersFromDatabase() {
       const { body } = await this.$supabase
@@ -301,35 +300,19 @@ export default Vue.extend({
       })
     },
     async locateUser() {
-      // this.gettingLocation = true
-      // try {
-      //   this.gettingLocation = false
-      //   this.location = await this.getLocation()
-      //   this.zoom = 19
-      //   console.log(this.location.lat, this.location.lng)
-      // } catch (e) {
-      //   this.gettingLocation = false
-      //   this.errorStr = e.message
-      //   console.log(e)
-      // }
       await Geolocation.getCurrentPosition()
         .then((pos: Position) => {
           this.location = L.latLng(pos.coords.latitude, pos.coords.longitude)
-
-          console.log(
-            'Current position:',
-            pos.coords.latitude,
-            pos.coords.longitude
-          )
         })
         .catch((error: Error) => {
           this.zoom = 8
-          console.log(error.message)
+          // eslint-disable-next-line no-console
+          console.error(error.message)
         })
     },
-    async closeModal(e: Event) {
+    async closeModal(event: Event) {
       // If clicked 'Save'
-      if (e) {
+      if (event) {
         const { data, error } = await this.$supabase
           .from<MapMarker>('locations')
           .insert([
@@ -340,7 +323,8 @@ export default Vue.extend({
             },
           ])
 
-        console.log(data, error)
+        // eslint-disable-next-line no-console
+        if (error) console.error(error.message)
 
         this.addMarkers(data)
       }
@@ -351,3 +335,10 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.container {
+  margin: var(--safe-area-inset-top) var(--safe-area-inset-right)
+    var(--safe-area-inset-bottom) var(--safe-area-inset-left);
+}
+</style>
