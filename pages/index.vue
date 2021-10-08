@@ -251,12 +251,29 @@ export default Vue.extend({
     async setSafeAreaInsets() {
       const { insets } = await SafeArea.getSafeAreaInsets()
 
-      for (const inset in insets) {
-        document.documentElement.style.setProperty(
-          `--safe-area-inset-${inset}`,
-          '7'
+      // FIXME
+      // for (const inset in insets) {
+      //   document.documentElement.style.setProperty(
+      //     `--safe-area-inset-${inset}`,
+      //     `${insets[`inset`]}px`
+      //   )
+      // }
+      document.documentElement.style.setProperty(
+          `--safe-area-inset-top`,
+          `${insets.top}px`
         )
-      }
+      document.documentElement.style.setProperty(
+          `--safe-area-inset-right`,
+          `${insets.right}px`
+        )
+      document.documentElement.style.setProperty(
+          `--safe-area-inset-bottom`,
+          `${insets.bottom}px`
+        )
+      document.documentElement.style.setProperty(
+          `--safe-area-inset-left`,
+          `${insets.left}px`
+        )
 
       console.log(`Insets: ${insets}`)
     },
