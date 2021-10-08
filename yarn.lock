@@ -9182,6 +9182,9 @@ rxjs@^6.6.0:
   dependencies:
     tslib "^1.9.0"
 
+safe-area-plugin@/Users/benjamiin/Documents/Code/CapacitorPlugins/safe-area-plugin:
+  version "0.0.1"
+
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz"

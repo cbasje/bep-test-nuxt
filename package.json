@@ -26,6 +26,7 @@
     "nuxt": "^2.15.7",
     "nuxt-leaflet": "^0.0.25",
     "nuxt-supabase": "^2.1.0",
+    "safe-area-plugin": "/Users/benjamiin/Documents/Code/CapacitorPlugins/safe-area-plugin",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
