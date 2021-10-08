@@ -9,10 +9,18 @@
     />
     <div class="container absolute inset-x-0 bottom-0 z-50">
       <!-- Button trigger modal -->
-      <modal-button v-show="showSettingsModal" class="mb-1" :is-filled="true">
+      <modal-button
+        class="mb-1"
+        :is-filled="true"
+        @click="showSettingsModal = true"
+      >
         Settings
       </modal-button>
-      <popup :save-button="false">
+      <popup
+        v-show="showSettingsModal"
+        :save-button="false"
+        @close="showSettingsModal = false"
+      >
         <template #title>Settings</template>
         <template #content>
           <div class="sm:overflow-hidden">
@@ -55,7 +63,13 @@
       <modal-button v-show="showMarkerPopup" :is-filled="true">
         Open Popup
       </modal-button>
-      <popup save-button="true" @close="closeModal($event)">
+      <popup
+        save-button="true"
+        @close="
+          closeModal($event)
+          showMarkerPopup = false
+        "
+      >
         <template #title>Add Marker</template>
         <template #content>
           <form id="submitForm" @submit.prevent>
