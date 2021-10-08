@@ -32,7 +32,7 @@ export default {
     '@nuxtjs/color-mode',
     '@nuxtjs/dotenv',
     '@nuxtjs/device',
-    "@nuxtjs/svg"
+    '@nuxtjs/svg',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -41,11 +41,22 @@ export default {
     '@nuxtjs/pwa',
     'nuxt-leaflet',
 
-    ['nuxt-supabase', {
-      supabaseUrl: process.env.VUE_APP_SUPABASE_URL,
-      supabaseKey: process.env.VUE_APP_SUPABASE_KEY
-    }]
+    [
+      'nuxt-supabase',
+      {
+        supabaseUrl: process.env.VUE_APP_SUPABASE_URL,
+        supabaseKey: process.env.VUE_APP_SUPABASE_KEY,
+      },
+    ],
   ],
+
+  env: {
+    VUE_APP_SUPABASE_URL: 'https://euyaospnwgppzjrgidjj.supabase.co',
+    VUE_APP_SUPABASE_KEY:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMzUzMDgwOCwiZXhwIjoxOTQ5MTA2ODA4fQ.m6JZ0Ya6g_qFyFp-eGpQ33azT1Yqq2fYL8DfowV256E',
+    VUE_APP_MAPBOX_TOKEN:
+      'pk.eyJ1IjoiYmVuamFtaWluIiwiYSI6ImNraWt5OW14aDBlZzgycWw0aGc3YjVnZmwifQ.Y0rTPF_rYzK10v2Ydogsag',
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
@@ -63,6 +74,6 @@ export default {
   // Color mode module
   colorMode: {
     preference: 'system',
-    classSuffix: ''
-  }
+    classSuffix: '',
+  },
 }
