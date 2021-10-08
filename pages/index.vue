@@ -27,8 +27,34 @@
             <div class="px-4 py-5 space-y-6 sm:p-6">
               <div class="grid grid-cols-3 gap-6">
                 <div class="col-span-6 sm:col-span-3">
-                  <h1>Color mode: {{ $colorMode.value }}</h1>
-                  <select v-model="$colorMode.preference">
+                  <label
+                    for="title"
+                    class="
+                      block
+                      text-sm
+                      font-medium
+                      text-gray-700
+                      dark:text-gray-200
+                    "
+                  >
+                    Color mode
+                  </label>
+                  <select
+                    v-model="$colorMode.preference"
+                    class="
+                      mt-1
+                      focus:ring-indigo-500 focus:border-indigo-500
+                      block
+                      w-full
+                      shadow-sm
+                      sm:text-sm
+                      bg-transparent
+                      dark:text-white
+                      border-gray-300
+                      dark:border-gray-600
+                      rounded-md
+                    "
+                  >
                     <option value="system">System</option>
                     <option value="light">Light</option>
                     <option value="dark">Dark</option>
@@ -39,11 +65,19 @@
               <div>
                 <p>
                   Map data &copy;
-                  <a href="https://www.openstreetmap.org/copyright">
+                  <a
+                    class="text-indigo-700 dark:text-indigo-500 underline"
+                    href="https://www.openstreetmap.org/copyright"
+                  >
                     OpenStreetMap
                   </a>
                   contributors, Imagery ©
-                  <a href="https://www.mapbox.com/">Mapbox</a>
+                  <a
+                    class="text-indigo-700 dark:text-indigo-500 underline"
+                    href="https://www.mapbox.com/"
+                  >
+                    Mapbox
+                  </a>
                 </p>
               </div>
             </div>
