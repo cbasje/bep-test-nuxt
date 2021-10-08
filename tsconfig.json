@@ -20,7 +20,9 @@
       "@nuxtjs/axios",
       "@types/node",
       "nuxt-leaflet",
-      "nuxt-supabase"
+      "nuxt-supabase",
+      "@nuxtjs/color-mode",
+      "@nuxtjs/device"
     ]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]

@@ -50,10 +50,25 @@
             flex flex-col
             w-full
             bg-white
+            dark:bg-gray-900
             outline-none
             focus:outline-none
           "
         >
+          <!--header-->
+          <div
+            class="
+              flex
+              items-start
+              justify-between
+              p-5
+              border-b border-solid border-gray-200
+              dark:border-gray-700
+              rounded-t
+            "
+          >
+            <h3 class="text-3xl font-semibold dark:text-white">Modal Title</h3>
+          </div>
           <slot name="content" />
           <!--footer-->
           <div
@@ -63,6 +78,7 @@
               justify-end
               p-5
               border-t border-solid border-gray-200
+              dark:border-gray-700
               rounded-b
             "
           >
@@ -78,8 +94,10 @@
                 font-medium
                 rounded-md
                 text-indigo-700
+                dark:text-indigo-500
                 background-transparent
                 hover:bg-gray-100
+                dark:hover:bg-gray-800
                 focus:outline-none
                 focus:ring-2
                 focus:ring-offset-2

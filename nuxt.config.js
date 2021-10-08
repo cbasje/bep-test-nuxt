@@ -29,14 +29,15 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/color-mode',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/device',
+    "@nuxtjs/svg"
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     'nuxt-leaflet',
 
@@ -58,4 +59,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // Color mode module
+  colorMode: {
+    preference: 'system',
+    classSuffix: ''
+  }
 }

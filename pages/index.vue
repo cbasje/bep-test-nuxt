@@ -8,8 +8,17 @@
       class="absolute inset-0 z-0"
     />
     <div class="container absolute inset-x-0 bottom-0 z-50">
+      <div>
+        <h1>Color mode: {{ $colorMode.value }}</h1>
+        <select v-model="$colorMode.preference">
+          <option value="system">System</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="sepia">Sepia</option>
+        </select>
+      </div>
       <button
-        v-if="platform != '' && platform != 'web'"
+        v-if="$device.isMobile"
         class="
           bg-purple-500
           text-white
@@ -35,29 +44,22 @@
 
       <Popup @close="closeModal($event)">
         <template #content>
-          <!--header-->
-          <div
-            class="
-              flex
-              items-start
-              justify-between
-              p-5
-              border-b border-solid border-gray-200
-              rounded-t
-            "
-          >
-            <h3 class="text-3xl font-semibold">Modal Title</h3>
-          </div>
           <!--body-->
           <div class="mt-5 md:mt-0 md:col-span-2">
             <form action="#" method="POST">
               <div class="sm:overflow-hidden">
-                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                <div class="px-4 py-5 space-y-6 sm:p-6">
                   <div class="grid grid-cols-3 gap-6">
                     <div class="col-span-6 sm:col-span-3">
                       <label
                         for="first-name"
-                        class="block text-sm font-medium text-gray-700"
+                        class="
+                          block
+                          text-sm
+                          font-medium
+                          text-gray-700
+                          dark:text-gray-200
+                        "
                       >
                         Titel
                       </label>
@@ -73,7 +75,10 @@
                           w-full
                           shadow-sm
                           sm:text-sm
+                          bg-transparent
+                          dark:text-white
                           border-gray-300
+                          dark:border-gray-600
                           rounded-md
                         "
                       />
@@ -83,7 +88,13 @@
                   <div>
                     <label
                       for="about"
-                      class="block text-sm font-medium text-gray-700"
+                      class="
+                        block
+                        text-sm
+                        font-medium
+                        text-gray-700
+                        dark:text-gray-200
+                      "
                     >
                       Notitie
                     </label>
@@ -99,19 +110,30 @@
                           block
                           w-full
                           sm:text-sm
+                          bg-transparent
+                          dark:text-white
                           border border-gray-300
+                          dark:border-gray-600
                           rounded-md
                         "
                         placeholder="you@example.com"
                       />
                     </div>
-                    <p class="mt-2 text-sm text-gray-500">
+                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
                       Brief description for your profile. URLs are hyperlinked.
                     </p>
                   </div>
 
                   <div>
-                    <label class="block text-sm font-medium text-gray-700">
+                    <label
+                      class="
+                        block
+                        text-sm
+                        font-medium
+                        text-gray-700
+                        dark:text-gray-200
+                      "
+                    >
                       Foto
                     </label>
                     <div
@@ -122,13 +144,21 @@
                         px-6
                         pt-5
                         pb-6
-                        border-2 border-gray-300 border-dashed
+                        border-2 border-gray-300
+                        dark:border-gray-600
+                        border-dashed
                         rounded-md
                       "
                     >
                       <div class="space-y-1 text-center">
                         <svg
-                          class="mx-auto h-12 w-12 text-gray-400"
+                          class="
+                            mx-auto
+                            h-12
+                            w-12
+                            text-gray-400
+                            dark:text-gray-500
+                          "
                           stroke="currentColor"
                           fill="none"
                           viewBox="0 0 48 48"
@@ -141,16 +171,19 @@
                             stroke-linejoin="round"
                           />
                         </svg>
-                        <div class="flex text-sm text-gray-600">
+                        <div
+                          class="flex text-sm text-gray-600 dark:text-gray-300"
+                        >
                           <label
                             for="file-upload"
                             class="
                               relative
                               cursor-pointer
-                              bg-white
+                              bg-transparent
                               rounded-md
                               font-medium
                               text-indigo-600
+                              dark:text-indigo-500
                               hover:text-indigo-500
                               focus-within:outline-none
                               focus-within:ring-2
@@ -168,7 +201,7 @@
                           </label>
                           <p class="pl-1">or drag and drop</p>
                         </div>
-                        <p class="text-xs text-gray-500">
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
                           PNG, JPG, GIF up to 10MB
                         </p>
                       </div>
@@ -190,9 +223,8 @@ import { mapGetters, mapMutations } from 'vuex'
 
 import L from 'leaflet'
 import { Geolocation, Position } from '@capacitor/geolocation'
-import { Device } from '@capacitor/device'
+import { SafeArea } from 'capacitor-plugin-safe-area'
 
-import { SafeAreaController } from 'safe-area-plugin'
 import { MapMarker } from '~/types/map-marker'
 
 export default Vue.extend({
@@ -213,18 +245,20 @@ export default Vue.extend({
   mounted() {
     this.getMarkersFromDatabase()
 
-    this.checkPlatform()
-
-    // SafeAreaController.addListener((insets) => {
-			// setState(insets);
-		// });
-
-		SafeAreaController.load();
+    this.setSafeAreaInsets()
   },
   methods: {
-    async checkPlatform() {
-      const info = await Device.getInfo()
-      this.platform = await info.platform
+    async setSafeAreaInsets() {
+      const { insets } = await SafeArea.getSafeAreaInsets()
+
+      for (const inset in insets) {
+        document.documentElement.style.setProperty(
+          `--safe-area-inset-${inset}`,
+          '7'
+        )
+      }
+
+      console.log(`Insets: ${insets}`)
     },
     async getMarkersFromDatabase() {
       const { body } = await this.$supabase

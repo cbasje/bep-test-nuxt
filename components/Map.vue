@@ -36,8 +36,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      username: 'benjamiin',
-      styleId: 'ckud8w32h00ju17pmqbkh7x0u',
       attribution:
         'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       icon: L.icon({
@@ -51,7 +49,10 @@ export default Vue.extend({
   computed: {
     tileUrl() {
       const accessToken = process.env.VUE_APP_MAPBOX_TOKEN;
-      return `https://api.mapbox.com/styles/v1/${this.username}/${this.styleId}/tiles/{z}/{x}/{y}?access_token=${accessToken}`
+      const username = 'benjamiin';
+      const styleId = 'ckud8w32h00ju17pmqbkh7x0u';
+
+      return `https://api.mapbox.com/styles/v1/${username}/${styleId}/tiles/{z}/{x}/{y}?access_token=${accessToken}`
     },
   },
   methods: {
