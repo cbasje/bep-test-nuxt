@@ -6,10 +6,11 @@
         :center="location"
         :options="{ zoomControl: false, attributionControl: false }"
       >
-        <l-tile-layer :url="tileUrl" :attribution="attribution" />
+        <!-- <l-tile-layer :url="tileUrl" :attribution="attribution" /> -->
+        <l-tile-layer :url="tileUrl" />
         <l-control-zoom v-if="$device.isMobile" position="bottomright" />
         <!-- TODO -->
-        <l-control-attribution position="topright" />
+        <!-- <l-control-attribution position="topright" /> -->
 
         <l-marker
           v-for="marker in markers"
@@ -36,8 +37,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      attribution:
-        'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       icon: L.icon({
         iconUrl: require('~/assets/leaf-green.png'),
         iconSize: [38, 95],

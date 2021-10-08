@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- Button trigger modal -->
-    <modal-button :is-filled="true" @click="toggleModal()"
-      >Open Popup</modal-button
-    >
     <!-- Modal -->
     <div
       id="modal-regular"
@@ -47,9 +43,14 @@
               rounded-t
             "
           >
-            <h3 class="text-3xl font-semibold dark:text-white">Modal Title</h3>
+            <h3 class="text-3xl font-semibold dark:text-white">
+              <slot name="title" />
+            </h3>
           </div>
-          <slot name="content" />
+          <!--body-->
+          <div class="mt-5 md:mt-0 md:col-span-2">
+            <slot name="content" />
+          </div>
           <!--footer-->
           <div
             class="
@@ -87,7 +88,7 @@
     </div>
     <div
       id="modal-regular-backdrop"
-      class="hidden opacity-50 fixed inset-0 z-40 bg-black"
+      class="opacity-50 fixed inset-0 z-40 bg-black"
     ></div>
   </div>
 </template>
@@ -98,23 +99,13 @@ import ModalButton from '~/components/ModalButton.vue'
 
 export default Vue.extend({
   components: { ModalButton },
+  props: {
+    saveButton: Boolean,
+  },
   data() {
     return {
       modalID: 'modal-regular',
     }
-  },
-  methods: {
-    toggleModal() {
-      const modal = document.getElementById(this.modalID)
-      const modalBackdrop = document.getElementById(this.modalID + '-backdrop')
-
-      if (modal == null || modalBackdrop == null) return
-
-      modal.classList.toggle('hidden')
-      modalBackdrop.classList.toggle('hidden')
-      modal.classList.toggle('flex')
-      modalBackdrop.classList.toggle('flex')
-    },
   },
 })
 </script>
