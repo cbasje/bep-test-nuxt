@@ -7,9 +7,9 @@
         :options="{ zoomControl: false, attributionControl: false }"
       >
         <l-tile-layer :url="tileUrl" :attribution="attribution" />
-        <l-control-zoom position="bottomright" class="pb-2" />
+        <l-control-zoom position="bottomright" style="padding-bottom: var(--safe-area-inset-bottom)" />
         <!-- TODO -->
-        <l-control-attribution position="topright" />
+        <l-control-attribution position="topright" style="padding-top: var(--safe-area-inset-top)" />
 
         <l-marker
           v-for="marker in markers"

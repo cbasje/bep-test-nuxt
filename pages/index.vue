@@ -192,6 +192,7 @@ import L from 'leaflet'
 import { Geolocation, Position } from '@capacitor/geolocation'
 import { Device } from '@capacitor/device'
 
+import { SafeAreaController } from 'safe-area-plugin'
 import { MapMarker } from '~/types/map-marker'
 
 export default Vue.extend({
@@ -213,6 +214,12 @@ export default Vue.extend({
     this.getMarkersFromDatabase()
 
     this.checkPlatform()
+
+    // SafeAreaController.addListener((insets) => {
+			// setState(insets);
+		// });
+
+		SafeAreaController.load();
   },
   methods: {
     async checkPlatform() {
