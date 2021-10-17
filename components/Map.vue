@@ -6,19 +6,27 @@
         :center="location"
         :options="{ zoomControl: false, attributionControl: false }"
       >
-        <!-- <l-tile-layer :url="tileUrl" :attribution="attribution" /> -->
         <l-tile-layer :url="tileUrl" />
         <l-control-zoom v-if="$device.isMobile" position="bottomright" />
         <!-- TODO -->
         <!-- <l-control-attribution position="topright" /> -->
 
-        <l-marker
-          v-for="marker in markers"
-          :key="marker.id"
-          :lat-lng="[marker.latitude, marker.longitude]"
-          :icon="icon"
-          @click="clickMarker(marker)"
+        <l-circle-marker
+          v-for="response in feedback"
+          :key="response.id"
+          :lat-lng="[response.latitude, response.longitude]"
+          @click="clickFeedback(response)"
         />
+
+        <l-polygon
+          v-for="polygon in polygons"
+          :key="polygon.id"
+          :lat-lngs="polygon.square_latlngs"
+          :color="polygon.color"
+          :fill-color="polygon.color"
+          :fill-opacity="0.33"
+          @click="clickSquare(polygon)"
+        ></l-polygon>
       </l-map>
     </client-only>
   </div>
@@ -27,41 +35,47 @@
 <script lang="ts">
 import Vue from 'vue'
 import L from 'leaflet'
-import { MapMarker } from '~/types/map-marker'
+
+import { Square } from '~/types/square'
+import { FeedbackResponse } from '~/types/feedback-response'
 
 export default Vue.extend({
   props: {
     location: L.LatLng,
     zoom: { type: Number, default: 8 },
-    markers: { type: Array, default: () => [] },
+    polygons: { type: Array, default: () => [] },
+    feedback: { type: Array, default: () => [] },
   },
   data() {
     return {
-      icon: L.icon({
-        iconUrl: require('~/assets/leaf-green.png'),
-        iconSize: [38, 95],
-        iconAnchor: [19, 47.5],
-      }),
       timestamp: Date.now(),
     }
   },
   computed: {
     tileUrl() {
-      const accessToken = process.env.VUE_APP_MAPBOX_TOKEN;
-      const username = 'benjamiin';
-      const styleId = 'ckud8w32h00ju17pmqbkh7x0u';
+      const accessToken = process.env.VUE_APP_MAPBOX_TOKEN
+      const username = 'benjamiin'
+      const styleId = 'ckud8w32h00ju17pmqbkh7x0u'
 
       return `https://api.mapbox.com/styles/v1/${username}/${styleId}/tiles/{z}/{x}/{y}?access_token=${accessToken}`
     },
   },
   methods: {
-    clickMarker(marker: MapMarker) {
+    clickFeedback(response: FeedbackResponse) {
       const currentTimestamp = Date.now()
-      if (currentTimestamp - this.timestamp > 100) this.alertClickMarker(marker)
+      if (currentTimestamp - this.timestamp > 100) this.alertClickFeedback(response)
       this.timestamp = Date.now()
     },
-    alertClickMarker(marker: MapMarker) {
-      alert(`Clicked marker ${marker.id}!`)
+    alertClickFeedback(response: FeedbackResponse) {
+      alert(`Clicked feedback ${response.id}!`)
+    },
+    clickSquare(square: Square) {
+      const currentTimestamp = Date.now()
+      if (currentTimestamp - this.timestamp > 100) this.alertClickSquare(square)
+      this.timestamp = Date.now()
+    },
+    alertClickSquare(square: Square) {
+      alert(`Clicked square ${square.name}!`)
     },
   },
 })

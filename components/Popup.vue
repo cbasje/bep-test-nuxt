@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="absolute">
     <div
       class="
         flex
@@ -66,7 +66,6 @@
               class="mr-2"
               @click="
                 $emit('close', false)
-                toggleModal()
               "
             >
               Close
@@ -75,7 +74,6 @@
               :is-filled="true"
               @click="
                 $emit('close', true)
-                toggleModal()
               "
             >
               Save Changes
@@ -84,9 +82,7 @@
         </div>
       </div>
     </div>
-    <div
-      class="opacity-50 fixed inset-0 z-40 bg-black"
-    ></div>
+    <div class="opacity-50 fixed inset-0 z-40 bg-black" />
   </div>
 </template>
 
@@ -98,11 +94,6 @@ export default Vue.extend({
   components: { ModalButton },
   props: {
     saveButton: Boolean,
-  },
-  data() {
-    return {
-      modalID: 'modal-regular',
-    }
   },
 })
 </script>
