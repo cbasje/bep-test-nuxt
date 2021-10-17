@@ -11,14 +11,14 @@
         <!-- TODO -->
         <!-- <l-control-attribution position="topright" /> -->
 
-        <!-- <l-circle-marker
+        <l-circle-marker
           v-for="response in feedback"
           :key="response.id"
           :lat-lng="[response.lat, response.lng]"
           :color="response.color"
           :fill-color="response.color"
           @click="clickFeedback(response)"
-        /> -->
+        />
 
         <l-polygon
           v-for="polygon in polygons"
