@@ -4,6 +4,7 @@
     <Map
       :location="location"
       :zoom="zoom"
+      :feedback="feedback"
       :polygons="squares"
       class="absolute inset-0 z-0"
     />
@@ -348,6 +349,7 @@ import ModalButton from '~/components/ModalButton.vue'
 import Popup from '~/components/Popup.vue'
 import Smile from '~/components/icons/Smile.vue'
 import User from '~/components/icons/User.vue'
+import { FeedbackResponse } from '~/types/feedback-response'
 
 export default Vue.extend({
   components: { ModalButton, Popup, Smile, User },
@@ -368,16 +370,17 @@ export default Vue.extend({
       platform: '',
       showSettingsModal: false,
       showMarkerPopup: false,
-      polygons: [] as any[],
     }
   },
   computed: {
-    ...mapGetters('squares', {
-      squares: 'getSquares',
+    ...mapGetters({
+      squares: 'squares/getSquares',
+      feedback: 'feedback/getFeedback',
     }),
   },
   mounted() {
     this.getSquaresFromDatabase()
+    this.getFeedbackFromDatabase()
   },
   methods: {
     async getSquaresFromDatabase() {
@@ -393,6 +396,12 @@ export default Vue.extend({
 
       if (body == null) return
       this.setSquares(body)
+    },
+    async getFeedbackFromDatabase() {
+      const { body } = await this.$supabase.from<FeedbackResponse>('feedback').select('*')
+
+      if (body == null) return
+      this.setFeedback(body)
     },
     async locateUser() {
       await Geolocation.getCurrentPosition()
@@ -410,32 +419,35 @@ export default Vue.extend({
       if (event) {
         this.locateUser().then(() => {
           // FIXME
-          // this.$supabase
-          //   .from<Square>('locations')
-          //   .insert([
-          //     {
-          //       title: this.title,
-          //       note: this.note,
-          //       latitude: this.location.lat,
-          //       longitude: this.location.lng,
-          //     },
-          //   ])
-          //   .then(
-          //     (data) => {
-          //       this.addMarkers(data)
-          //       this.title = ''
-          //       this.note = ''
-          //     },
-          //     (error) => {
-          //       // eslint-disable-next-line no-console
-          //       console.error(error.message)
-          //     }
-          //   )
+          this.$supabase
+            .from<FeedbackResponse>('feedback')
+            .insert([
+              {
+                person: 'Persoon',
+                mood: this.mood,
+                note: this.note,
+                lat: this.location.lat,
+                lng: this.location.lng,
+              },
+            ])
+            .then(
+              (data) => {
+                this.addFeedback(data)
+                this.mood = 5
+                this.note = ''
+              },
+              (error) => {
+                // eslint-disable-next-line no-console
+                console.error(error.message)
+              }
+            )
         })
       }
     },
-    ...mapMutations('squares', {
-      setSquares: 'setSquares',
+    ...mapMutations({
+      setSquares: 'squares/setSquares',
+      setFeedback: 'feedback/setFeedback',
+      addFeedback: 'feedback/add',
     }),
   },
 })

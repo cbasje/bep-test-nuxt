@@ -14,7 +14,9 @@
         <l-circle-marker
           v-for="response in feedback"
           :key="response.id"
-          :lat-lng="[response.latitude, response.longitude]"
+          :lat-lng="[response.lat, response.lng]"
+          :color="response.color"
+          :fill-color="response.color"
           @click="clickFeedback(response)"
         />
 
@@ -67,7 +69,7 @@ export default Vue.extend({
       this.timestamp = Date.now()
     },
     alertClickFeedback(response: FeedbackResponse) {
-      alert(`Clicked feedback ${response.id}!`)
+      alert(`Clicked feedback from ${response.person}!`)
     },
     clickSquare(square: Square) {
       const currentTimestamp = Date.now()
