@@ -235,12 +235,12 @@
                           dark:border-gray-600
                           rounded-md
                         "
-                        placeholder="you@example.com"
+                        placeholder="Typ hier wat meer over je ervaring"
                       />
                     </div>
-                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                    <!-- <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
                       Brief description for your profile. URLs are hyperlinked.
-                    </p>
+                    </p> -->
                   </div>
 
                   <div>
@@ -410,9 +410,10 @@ export default Vue.extend({
           this.location = L.latLng(pos.coords.latitude, pos.coords.longitude)
         })
         .catch((error: Error) => {
-          this.zoom = 8
-          // eslint-disable-next-line no-console
-          console.error(error.message)
+          // this.zoom = 8
+          // console.error(error.message)
+
+          throw error
         })
     },
     closeModal(event: Event) {
