@@ -8,11 +8,12 @@
       :polygons="squares"
       class="absolute inset-0 z-0"
     />
-    <div class="absolute inset-0 z-50">
+    <!-- <div class="absolute inset-0 z-50"> -->
       <div
         class="
           absolute
           inset-y-0
+          z-50
           right-0
           p-3
           flex flex-col
@@ -331,7 +332,7 @@
           </template>
         </popup>
       </div>
-    </div>
+    <!-- </div> -->
   </main>
 </template>
 
