@@ -31,6 +31,7 @@
           text-sm
           font-medium
           rounded-md
+          gap-1
           text-black
           bg-white
           ease-linear
@@ -56,6 +57,8 @@
         >
           <user />
         </button>
+
+        <div v-if="!isAdmin" class="h-[1px] mx-2 flex-grow bg-gray-400" />
 
         <button
           v-if="!isAdmin"
