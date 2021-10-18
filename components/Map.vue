@@ -7,8 +7,8 @@
         :options="{ zoomControl: false, attributionControl: false }"
       >
         <l-tile-layer :url="tileUrl" />
-        <l-control-zoom v-if="$device.isMobile" position="bottomright" />
         <!-- TODO -->
+        <!-- <l-control-zoom v-if="$device.isMobile" position="bottomright" /> -->
         <!-- <l-control-attribution position="topright" /> -->
 
         <l-circle-marker
