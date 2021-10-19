@@ -13,7 +13,7 @@
         items-center
       "
     >
-      <div class="relative w-auto my-6 mx-auto max-w-3xl">
+      <div class="relative w-screen p-6 mx-auto max-w-screen-sm">
         <!--content-->
         <div
           class="
@@ -29,27 +29,26 @@
             focus:outline-none
           "
         >
-          <!--header-->
-          <div
-            class="
-              flex
-              items-start
-              justify-between
-              p-5
-              border-b border-solid border-gray-200
-              dark:border-gray-700
-              rounded-t
-            "
-          >
-            <h3 class="text-3xl font-semibold dark:text-white">
-              <slot name="title" />
-            </h3>
-          </div>
-          <!--body-->
-          <slot name="content" />
+          <button class="absolute right-5 top-5 text-purple-600" @click="$router.push('/')">
+            <close />
+          </button>
+
+          <slot />
         </div>
       </div>
     </div>
     <div class="opacity-50 fixed inset-0 z-40 bg-black" />
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+
+import Close from '~/components/icons/Close.vue'
+
+export default Vue.extend({
+  components: {
+    Close,
+  },
+})
+</script>

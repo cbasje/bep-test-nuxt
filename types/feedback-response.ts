@@ -1,4 +1,4 @@
-enum Mood {
+export enum Mood {
   WARMER = 3,
   NEUTRAL = 2,
   COLDER = 1,

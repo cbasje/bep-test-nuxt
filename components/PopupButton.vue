@@ -12,9 +12,9 @@
       font-medium
       rounded-md
       text-white
-      bg-blue-600
-      hover:bg-blue-700
-      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+      bg-purple-600
+      hover:bg-purple-700
+      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
       ease-linear
       transition-all
       duration-150
@@ -35,12 +35,12 @@
       text-sm
       font-medium
       rounded-md
-      text-blue-700
-      dark:text-blue-500
+      text-purple-700
+      dark:text-purple-500
       background-transparent
       hover:bg-gray-100
       dark:hover:bg-gray-800
-      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
       ease-linear
       transition-all
       duration-150

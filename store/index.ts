@@ -1,9 +1,7 @@
 import L from 'leaflet'
-// FIXME
-// eslint-disable-next-line import/named
-import { Geolocation, Position } from '@capacitor/geolocation'
-
 import { ActionTree, GetterTree, MutationTree } from 'vuex/types'
+
+import { Geolocation } from '@capacitor/geolocation'
 
 export interface RootState {
   isAdmin: boolean
@@ -30,19 +28,20 @@ export const getters: GetterTree<RootState, RootState> = {
   },
   getLocation(state: RootState) {
     return state.location
-  }
+  },
 }
 
 export const actions: ActionTree<RootState, RootState> = {
   async locateUser({ commit }) {
-    await Geolocation.getCurrentPosition()
-      .then((pos: Position) => {
-        const location = L.latLng(pos.coords.latitude, pos.coords.longitude)
-        commit('setLocation', location)
-      })
-      .catch((error: Error) => {
-        throw error
-      })
+    const pos = await Geolocation.getCurrentPosition()
+    commit(
+      'setLocation',
+      L.latLng(
+        pos.coords.latitude,
+        pos.coords.longitude,
+        pos.coords.altitude != null ? pos.coords.altitude : undefined
+      )
+    )
   },
 }
 

@@ -85,7 +85,7 @@
       <!-- Button trigger popup -->
       <NuxtLink
         v-if="!isAdmin"
-        to="/settings"
+        to="/feedback/0"
         class="
           inline-flex
           justify-center
@@ -94,12 +94,12 @@
           shadow-sm
           rounded-full
           text-white
-          bg-blue-600
-          hover:bg-blue-700
+          bg-purple-600
+          hover:bg-purple-700
           focus:outline-none
           focus:ring-2
           focus:ring-offset-2
-          focus:ring-blue-500
+          focus:ring-purple-500
           ease-linear
           transition-all
           duration-150
@@ -108,12 +108,8 @@
         <smile class="w-20 h-20" />
       </NuxtLink>
       <popup v-show="showPopup" :save-button="false">
-        <template #title>{{
-          currentRoute ? popups[currentRoute].title : ''
-        }}</template>
-        <template #content @closePopup="closePopup">
-          <Nuxt />
-        </template>
+        <!-- The Nuxt content is all in popups -->
+        <Nuxt />
       </popup>
     </div>
   </main>
@@ -125,10 +121,8 @@ import Vue from 'vue'
 import { StatusBar, Style } from '@capacitor/status-bar'
 import { SafeArea } from 'capacitor-plugin-safe-area'
 
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { Route } from 'vue-router/types'
-
-import L from 'leaflet'
 
 import { Square } from '~/types/square'
 import { FeedbackResponse } from '~/types/feedback-response'
@@ -154,14 +148,12 @@ export default Vue.extend({
         },
       },
       zoom: 17,
-      currentFeedbackSolutionId: 0,
     }
   },
   computed: {
     ...mapGetters({
       squares: 'squares/getSquares',
       feedback: 'feedback/getFeedback',
-      getSolutionById: 'solutions/getSolutionById',
       isAdmin: 'isAdmin',
       location: 'getLocation',
     }),
@@ -185,7 +177,8 @@ export default Vue.extend({
     this.getSolutionsFromDatabase()
 
     // FIXME
-    this.setAdmin(!this.$device.isMobile)
+    // this.setAdmin(!this.$device.isMobile)
+    this.setAdmin(false)
     this.setAuthenticated(true)
   },
   methods: {
@@ -260,26 +253,10 @@ export default Vue.extend({
 
       if (body == null) return
       this.setSolutions(body)
-      this.openPopupForSolution()
     },
-    openPopupForSolution() {
-      if (this.$route.query.sol && typeof this.$route.query.sol === 'string') {
-        this.currentFeedbackSolutionId = Number(this.$route.query.sol)
-
-        const currentSolution: Solution = this.getSolutionById(
-          this.currentFeedbackSolutionId
-        )
-        if (currentSolution) {
-          this.feedback.title = currentSolution.name
-          this.setLocation(L.latLng(currentSolution.lat, currentSolution.lng))
-
-          this.showPopup = true
-        }
-      }
-    },
-    closePopup() {
-      // this.$router.push({ path: '/' })
-    },
+    ...mapActions({
+      locateUser: 'locateUser',
+    }),
     ...mapMutations({
       setSquares: 'squares/setSquares',
       setFeedback: 'feedback/setFeedback',
@@ -287,7 +264,6 @@ export default Vue.extend({
       setSolutions: 'solutions/setSolutions',
       setAdmin: 'setAdmin',
       setAuthenticated: 'setAuthenticated',
-      setLocation: 'setLocation',
     }),
   },
 })

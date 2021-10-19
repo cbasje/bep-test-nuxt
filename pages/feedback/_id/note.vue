@@ -1,51 +1,26 @@
 <template>
   <section>
+    <!--header-->
+    <div
+      class="
+        flex
+        items-start
+        justify-between
+        p-5
+        border-b border-solid border-gray-200
+        dark:border-gray-700
+        rounded-t
+      "
+    >
+      <h3 class="text-3xl font-semibold dark:text-white">
+        {{ currentSolution.name }}
+      </h3>
+    </div>
+    <!--body-->
     <div class="mt-5 md:mt-0 md:col-span-2">
       <form id="submitForm" @submit.prevent>
         <div class="sm:overflow-hidden">
           <div class="px-4 py-5 space-y-6 sm:p-6">
-            <div class="grid grid-cols-3 gap-6">
-              <div class="col-span-6 sm:col-span-3">
-                <label
-                  for="select"
-                  class="
-                    block
-                    text-sm
-                    font-medium
-                    text-gray-700
-                    dark:text-gray-200
-                  "
-                >
-                  Hoe voel je je hier?
-                </label>
-                <select
-                  id="select"
-                  v-model="mood"
-                  class="
-                    mt-1
-                    focus:ring-blue-500 focus:border-blue-500
-                    block
-                    w-full
-                    shadow-sm
-                    sm:text-sm
-                    bg-transparent
-                    dark:text-white
-                    border-gray-300
-                    dark:border-gray-600
-                    rounded-md
-                  "
-                >
-                  <option
-                    v-for="option in moodOptions"
-                    :key="option.id"
-                    :value="option.value"
-                  >
-                    {{ option.name }}
-                  </option>
-                </select>
-              </div>
-            </div>
-
             <div>
               <label
                 for="note"
@@ -66,7 +41,7 @@
                   rows="3"
                   class="
                     shadow-sm
-                    focus:ring-blue-500 focus:border-blue-500
+                    focus:ring-purple-500 focus:border-purple-500
                     mt-1
                     block
                     w-full
@@ -85,7 +60,7 @@
               </p>
             </div>
 
-            <upload-area />
+            <!-- <upload-area /> -->
           </div>
         </div>
       </form>
@@ -106,16 +81,20 @@
       <popup-button
         :is-filled="false"
         class="mr-2"
-        @click="$emit('closePopup')"
+        @click="
+          saveChanges()
+          $emit('closePopup')
+          $router.push({ path: '/' })
+        "
       >
-        Close
+        Skip
       </popup-button>
       <popup-button
         :is-filled="true"
         @click="
           saveChanges()
           $emit('closePopup')
-      $router.push({ path: '/' })
+          $router.push({ path: '/' })
         "
       >
         Save Changes
@@ -127,28 +106,59 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import { FeedbackResponse } from '~/types/feedback-response'
+
+import L from 'leaflet'
+
+import { FeedbackResponse, Mood } from '~/types/feedback-response'
+import { Solution } from '~/types/solution'
 
 export default Vue.extend({
   data() {
     return {
-      mood: 5,
+      mood: Mood.NEUTRAL,
       moodOptions: [
         { id: 1, name: 'Ongemakkelijk', value: 2 },
         { id: 2, name: 'Oké', value: 5 },
         { id: 3, name: 'Lekker', value: 8 },
       ],
       note: '',
+      currentSolution: {
+        id: 0,
+        name: 'Feedback',
+      },
     }
   },
   computed: {
     ...mapGetters({
       location: 'getLocation',
+      getSolutionById: 'solutions/getSolutionById',
     }),
   },
+  mounted() {
+    this.checkForId()
+    this.checkParams()
+  },
   methods: {
+    checkForId() {
+      if (this.$route.params.id) {
+        const id = Number(this.$route.params.id)
+
+        const currentSolution: Solution = this.getSolutionById(id)
+        if (currentSolution) {
+          this.currentSolution = currentSolution
+          this.setLocation(L.latLng(currentSolution.lat, currentSolution.lng))
+        }
+      }
+    },
+    checkParams() {
+      if (this.$route.query) {
+        this.mood = Number(this.$route.query.mood)
+      }
+    },
     saveChanges() {
-      this.locateUser().then(() => {
+      try {
+        this.locateUser()
+
         // FIXME
         this.$supabase
           .from<FeedbackResponse>('feedback')
@@ -172,11 +182,17 @@ export default Vue.extend({
               console.error(error.message)
             }
           )
-      })
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e.message)
+      }
     },
-    ...mapActions({ locateUser: 'locateUser' }),
+    ...mapActions({
+      locateUser: 'locateUser',
+    }),
     ...mapMutations({
       addFeedback: 'feedback/add',
+      setLocation: 'setLocation',
     }),
   },
 })

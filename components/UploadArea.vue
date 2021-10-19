@@ -41,13 +41,13 @@
               bg-transparent
               rounded-md
               font-medium
-              text-blue-600
-              dark:text-blue-500
-              hover:text-blue-500
+              text-purple-600
+              dark:text-purple-500
+              hover:text-purple-500
               focus-within:outline-none
               focus-within:ring-2
               focus-within:ring-offset-2
-              focus-within:ring-blue-500
+              focus-within:ring-purple-500
             "
           >
             <span>Upload a file</span>
