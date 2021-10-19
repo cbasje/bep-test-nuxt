@@ -46,54 +46,10 @@
             </h3>
           </div>
           <!--body-->
-          <div class="mt-5 md:mt-0 md:col-span-2">
-            <slot name="content" />
-          </div>
-          <!--footer-->
-          <div
-            class="
-              flex
-              items-center
-              justify-end
-              p-5
-              border-t border-solid border-gray-200
-              dark:border-gray-700
-              rounded-b
-            "
-          >
-            <modal-button
-              :is-filled="false"
-              class="mr-2"
-              @click="
-                $emit('close', false)
-              "
-            >
-              Close
-            </modal-button>
-            <modal-button
-              :is-filled="true"
-              @click="
-                $emit('close', true)
-              "
-            >
-              Save Changes
-            </modal-button>
-          </div>
+          <slot name="content" />
         </div>
       </div>
     </div>
     <div class="opacity-50 fixed inset-0 z-40 bg-black" />
   </div>
 </template>
-
-<script lang="ts">
-import Vue from 'vue'
-import ModalButton from '~/components/ModalButton.vue'
-
-export default Vue.extend({
-  components: { ModalButton },
-  props: {
-    saveButton: Boolean,
-  },
-})
-</script>

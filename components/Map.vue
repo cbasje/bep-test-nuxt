@@ -17,6 +17,7 @@
           :lat-lng="[response.lat, response.lng]"
           :color="response.color"
           :fill-color="response.color"
+          :fill-opacity="0.33"
           @click="clickFeedback(response)"
         />
 
