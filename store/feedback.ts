@@ -14,17 +14,39 @@ export const getters: GetterTree<FeedbackState, RootState> = {
   getFeedback(state: FeedbackState) {
     return state.feedback
   },
+  getFeedbackById(state: FeedbackState) {
+    return (id: number) => {
+      return state.feedback.find((res) => res.id === id)
+    }
+  },
 }
 
 export const actions: ActionTree<FeedbackState, RootState> = {
-  // async loadSettings({ commit }) {
-  //   const response = await $supabase.settings.loadSettings();
-  //   commit('saveSettings', response.data.data);
-  // },
-  // async loadShipLocations({ commit }) {
-  //   const response = await $supabase.settings.loadShipLocations();
-  //   commit('saveShipLocations', response.data.data);
-  // }
+  async loadFeedback({ commit }) {
+    const { body } = await this.$supabase
+      .from<FeedbackResponse>('feedback')
+      .select('*')
+
+    commit('setFeedback', body);
+  },
+  async getWeather({ rootState }) {
+    const location = rootState.location
+
+    const url = `api.openweathermap.org/data/2.5/weather
+      ?lat=${location.lat}
+      &lon=${location.lng}
+      &appid=${process.env.VUE_APP_WEATHER}
+      &units=metric
+      &lang=nl`
+    const { data } = await this.$axios.$get(url)
+    console.log(data.main)
+
+    return data.main.temp
+  },
+  async saveFeedback({ commit }, payload: FeedbackResponse) {
+    const data = await this.$supabase.from<FeedbackResponse>('feedback').insert(payload)
+    commit('add', data)
+  },
 }
 
 export const mutations: MutationTree<FeedbackState> = {

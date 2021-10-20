@@ -57,6 +57,7 @@ export default {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMzUzMDgwOCwiZXhwIjoxOTQ5MTA2ODA4fQ.m6JZ0Ya6g_qFyFp-eGpQ33azT1Yqq2fYL8DfowV256E',
     VUE_APP_MAPBOX_TOKEN:
       'pk.eyJ1IjoiYmVuamFtaWluIiwiYSI6ImNraWt5OW14aDBlZzgycWw0aGc3YjVnZmwifQ.Y0rTPF_rYzK10v2Ydogsag',
+    VUE_APP_WEATHER: '4b3ab421eec8ff1a3dd622d82f1225d6',
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -83,6 +84,6 @@ export default {
     defaultLocale: 'nl',
     locales: ['nl'],
     timezone: true,
-    defaultTimezone: 'Europe/Amsterdam'
-  }
+    defaultTimezone: 'Europe/Amsterdam',
+  },
 }

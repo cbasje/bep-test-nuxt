@@ -87,7 +87,7 @@
           $router.push({ path: '/' })
         "
       >
-        Skip
+        Overslaan
       </popup-button>
       <popup-button
         :is-filled="true"
@@ -97,7 +97,7 @@
           $router.push({ path: '/' })
         "
       >
-        Save Changes
+        Opslaan
       </popup-button>
     </div>
   </section>
@@ -116,11 +116,6 @@ export default Vue.extend({
   data() {
     return {
       mood: Mood.NEUTRAL,
-      moodOptions: [
-        { id: 1, name: 'Ongemakkelijk', value: 2 },
-        { id: 2, name: 'Oké', value: 5 },
-        { id: 3, name: 'Lekker', value: 8 },
-      ],
       note: '',
       currentSolution: {
         id: 0,
@@ -155,40 +150,32 @@ export default Vue.extend({
         this.mood = Number(this.$route.query.mood)
       }
     },
-    saveChanges() {
+    async saveChanges() {
       try {
         this.locateUser()
 
-        // FIXME
-        this.$supabase
-          .from<FeedbackResponse>('feedback')
-          .insert([
-            {
-              person: 'Persoon',
-              mood: this.mood,
-              note: this.note,
-              lat: this.location.lat,
-              lng: this.location.lng,
-            },
-          ])
-          .then(
-            (data) => {
-              this.addFeedback(data)
-              this.mood = 5
-              this.note = ''
-            },
-            (error) => {
-              // eslint-disable-next-line no-console
-              console.error(error.message)
-            }
-          )
+        const temp = await this.getWeather()
+
+        this.saveFeedback(<FeedbackResponse>{
+          person: 'Persoon',
+          mood: this.mood,
+          note: this.note,
+          temp,
+          lat: this.location.lat,
+          lng: this.location.lng,
+        })
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e.message)
+      } finally {
+        this.mood = Mood.NEUTRAL
+        this.note = ''
       }
     },
     ...mapActions({
       locateUser: 'locateUser',
+      getWeather: 'feedback/getWeather',
+      saveFeedback: 'feedback/saveFeedback'
     }),
     ...mapMutations({
       addFeedback: 'feedback/add',

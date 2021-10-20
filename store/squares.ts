@@ -17,14 +17,19 @@ export const getters: GetterTree<SquaresState, RootState> = {
 }
 
 export const actions: ActionTree<SquaresState, RootState> = {
-  // async loadSettings({ commit }) {
-  //   const response = await $supabase.settings.loadSettings();
-  //   commit('saveSettings', response.data.data);
-  // },
-  // async loadShipLocations({ commit }) {
-  //   const response = await $supabase.settings.loadShipLocations();
-  //   commit('saveShipLocations', response.data.data);
-  // }
+  async loadSquares({ commit }) {
+    const { body } = await this.$supabase.from<Square>('squares').select(`
+      id,
+      name,
+      created_at,
+      square_latlngs (
+        lat, lng
+      ),
+      color
+    `)
+
+    commit('setSquares', body);
+  },
 }
 
 export const mutations: MutationTree<SquaresState> = {

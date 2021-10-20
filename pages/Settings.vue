@@ -47,6 +47,7 @@
                   dark:border-gray-600
                   rounded-md
                 "
+                @input="updateStatusBar"
               >
                 <option value="system">System</option>
                 <option value="light">Light</option>
@@ -78,3 +79,26 @@
     </div>
   </section>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+
+import { StatusBar, Style } from '@capacitor/status-bar'
+
+export default Vue.extend({
+  methods: {
+    updateStatusBar() {
+      if (this.$device.isDesktop) return
+
+      if (this.$colorMode.value === 'dark') this.setStatusBarStyleDark()
+      else this.setStatusBarStyleLight()
+    },
+    async setStatusBarStyleDark() {
+      await StatusBar.setStyle({ style: Style.Dark })
+    },
+    async setStatusBarStyleLight() {
+      await StatusBar.setStyle({ style: Style.Light })
+    },
+  }
+})
+</script>

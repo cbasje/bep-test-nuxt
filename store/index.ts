@@ -7,6 +7,7 @@ export interface RootState {
   isAdmin: boolean
   isAuthenticated: boolean
   location: L.LatLng
+  zoom: number
 }
 
 export const state = (): RootState => ({
@@ -14,6 +15,7 @@ export const state = (): RootState => ({
   isAuthenticated: false,
   // location: L.latLng(52.175982, 5.645263),
   location: L.latLng(52.002, 4.371),
+  zoom: 8
 })
 
 export const getters: GetterTree<RootState, RootState> = {
@@ -29,6 +31,9 @@ export const getters: GetterTree<RootState, RootState> = {
   getLocation(state: RootState) {
     return state.location
   },
+  getZoom(state: RootState) {
+    return state.zoom
+  }
 }
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -54,5 +59,6 @@ export const mutations: MutationTree<RootState> = {
   },
   setLocation(state: RootState, payload: L.LatLng) {
     state.location = payload
+    state.zoom = 0.05
   },
 }

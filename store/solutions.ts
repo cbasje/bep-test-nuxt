@@ -23,14 +23,13 @@ export const getters: GetterTree<SolutionsState, RootState> = {
 }
 
 export const actions: ActionTree<SolutionsState, RootState> = {
-  // async loadSettings({ commit }) {
-  //   const response = await $supabase.settings.loadSettings();
-  //   commit('saveSettings', response.data.data);
-  // },
-  // async loadShipLocations({ commit }) {
-  //   const response = await $supabase.settings.loadShipLocations();
-  //   commit('saveShipLocations', response.data.data);
-  // }
+  async loadSolutions({ commit }) {
+    const { body } = await this.$supabase
+      .from<Solution>('gv_solutions')
+      .select('*')
+
+    commit('setSolutions', body);
+  },
 }
 
 export const mutations: MutationTree<SolutionsState> = {

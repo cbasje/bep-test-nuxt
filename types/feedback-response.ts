@@ -5,12 +5,12 @@ export enum Mood {
 }
 
 export interface FeedbackResponse {
-  id: number
+  id?: number
   person: string
   mood: Mood
-  color: string
   note: string
-  createdAt: Date
+  temp: number
+  createdAt?: Date
   lat: number
   lng: number
 }

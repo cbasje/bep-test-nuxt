@@ -6,7 +6,8 @@
         :center="location"
         :options="{ zoomControl: false, attributionControl: false }"
       >
-        <l-tile-layer :url="tileUrl" />
+        <l-tile-layer v-if="$colorMode.value == 'dark'" :url="tileUrlDark" />
+        <l-tile-layer v-else :url="tileUrl" />
         <!-- TODO -->
         <!-- <l-control-zoom v-if="$device.isMobile" position="bottomright" /> -->
         <!-- <l-control-attribution position="topright" /> -->
@@ -15,20 +16,20 @@
           v-for="response in feedback"
           :key="response.id"
           :lat-lng="[response.lat, response.lng]"
-          :color="response.color"
-          :fill-color="response.color"
+          :color="moodColor(response.mood)"
+          :fill-color="moodColor(response.mood)"
           :fill-opacity="0.33"
           @click="clickFeedback(response)"
         />
 
         <l-polygon
-          v-for="polygon in polygons"
-          :key="polygon.id"
-          :lat-lngs="polygon.square_latlngs"
-          :color="polygon.color"
-          :fill-color="polygon.color"
+          v-for="square in squares"
+          :key="square.id"
+          :lat-lngs="square.square_latlngs"
+          :color="square.color"
+          :fill-color="square.color"
           :fill-opacity="0.33"
-          @click="clickSquare(polygon)"
+          @click="clickSquare(square)"
         />
       </l-map>
     </client-only>
@@ -37,36 +38,45 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import L from 'leaflet'
+import { mapGetters } from 'vuex'
 
 import { Square } from '~/types/square'
-import { FeedbackResponse } from '~/types/feedback-response'
+import { FeedbackResponse, Mood } from '~/types/feedback-response'
 
 export default Vue.extend({
-  props: {
-    location: L.LatLng,
-    zoom: { type: Number, default: 8 },
-    polygons: { type: Array, default: () => [] },
-    feedback: { type: Array, default: () => [] },
-  },
   data() {
     return {
       timestamp: Date.now(),
     }
   },
   computed: {
-    tileUrl() {
+    tileUrl(): string {
       const accessToken = process.env.VUE_APP_MAPBOX_TOKEN
       const username = 'benjamiin'
       const styleId = 'ckud8w32h00ju17pmqbkh7x0u'
 
       return `https://api.mapbox.com/styles/v1/${username}/${styleId}/tiles/{z}/{x}/{y}?access_token=${accessToken}`
     },
+    tileUrlDark(): string {
+      const accessToken = process.env.VUE_APP_MAPBOX_TOKEN
+      const username = 'benjamiin'
+      const styleId = 'ckikyehft1ese17qsrgq50p2n'
+
+      return `https://api.mapbox.com/styles/v1/${username}/${styleId}/tiles/{z}/{x}/{y}?access_token=${accessToken}`
+    },
+    ...mapGetters({
+      location: 'getLocation',
+      zoom: 'getZoom',
+      squares: 'squares/getSquares',
+      feedback: 'feedback/getFeedback',
+      solutions: 'solutions/getSolutions'
+    })
   },
   methods: {
     clickFeedback(response: FeedbackResponse) {
       const currentTimestamp = Date.now()
-      if (currentTimestamp - this.timestamp > 100) this.alertClickFeedback(response)
+      if (currentTimestamp - this.timestamp > 100)
+        this.alertClickFeedback(response)
       this.timestamp = Date.now()
     },
     alertClickFeedback(response: FeedbackResponse) {
@@ -79,6 +89,16 @@ export default Vue.extend({
     },
     alertClickSquare(square: Square) {
       alert(`Clicked square ${square.name}!`)
+    },
+    moodColor(mood: Mood): string {
+      switch (mood) {
+        case Mood.WARMER:
+          return '#F3573B'
+        case Mood.NEUTRAL:
+          return '#F6BF42'
+        case Mood.COLDER:
+          return '#007AFF'
+      }
     },
   },
 })

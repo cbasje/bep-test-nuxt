@@ -963,6 +963,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-1.0.3.tgz#0ed10d86958b80342292e4044cc9e9630d2413fb"
   integrity sha512-btprzQ5Spjqd6FX3eXKqRKTKZWlIZmJL4bQ79d5N1ESortOZ5NJFB25lAT/a073t8aaJv6DVdZurVFd0/0ELSA==
 
+"@capacitor/storage@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/storage/-/storage-1.2.2.tgz#00c1c18c698afd8e2f9ad0741f80b674c97023eb"
+  integrity sha512-IHx/HcC2UFCWIUUTn/Q0dn6m1iyvdxa9dt410EYS5W0DZPevlGxp2yYDgnqkqbrppxbEA8P1wEK1KoI0xwLvKA==
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.npmjs.org/@csstools/convert-colors/-/convert-colors-1.4.0.tgz"

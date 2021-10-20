@@ -1,13 +1,7 @@
 <template>
   <main>
     <!-- <Tutorial/> -->
-    <Map
-      :location="location"
-      :zoom="zoom"
-      :feedback="feedback"
-      :polygons="squares"
-      class="absolute inset-0 z-0"
-    />
+    <Map class="absolute inset-0 z-0" />
     <!-- <div class="absolute inset-0 z-50"> -->
     <div
       class="
@@ -33,7 +27,9 @@
           rounded-md
           gap-1
           text-black
+          dark:text-white
           bg-white
+          dark:bg-gray-900
           ease-linear
           transition-all
           duration-150
@@ -47,8 +43,9 @@
             justify-center
             py-2
             px-3
-            bg-transparent
+            background-transparent
             hover:bg-gray-100
+            dark:hover:bg-gray-800
             focus:outline-none
             focus:ring-2
             focus:ring-offset-2
@@ -68,8 +65,9 @@
             justify-center
             py-2
             px-3
-            bg-transparent
+            background-transparent
             hover:bg-gray-100
+            dark:hover:bg-gray-800
             focus:outline-none
             focus:ring-2
             focus:ring-offset-2
@@ -84,7 +82,7 @@
 
       <!-- Button trigger popup -->
       <NuxtLink
-        v-if="!isAdmin"
+        v-if="!isAdmin && !$device.isDesktop"
         to="/feedback/0"
         class="
           inline-flex
@@ -120,13 +118,10 @@ import Vue from 'vue'
 
 import { StatusBar, Style } from '@capacitor/status-bar'
 import { SafeArea } from 'capacitor-plugin-safe-area'
+import { Storage } from '@capacitor/storage'
 
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { Route } from 'vue-router/types'
-
-import { Square } from '~/types/square'
-import { FeedbackResponse } from '~/types/feedback-response'
-import { Solution } from '~/types/solution'
 
 import Popup from '~/components/Popup.vue'
 import Locate from '~/components/icons/Locate.vue'
@@ -139,23 +134,11 @@ export default Vue.extend({
     return {
       currentRoute: '',
       showPopup: false,
-      popups: {
-        feedback: {
-          title: 'Feedback',
-        },
-        settings: {
-          title: 'Settings',
-        },
-      },
-      zoom: 17,
     }
   },
   computed: {
     ...mapGetters({
-      squares: 'squares/getSquares',
-      feedback: 'feedback/getFeedback',
       isAdmin: 'isAdmin',
-      location: 'getLocation',
     }),
   },
   watch: {
@@ -166,15 +149,20 @@ export default Vue.extend({
   },
   mounted() {
     this.checkForPopup(this.$route)
+    this.checkForOnboarding()
 
-    this.setSafeAreaInsets()
+    if (!this.$device.isDesktop) {
+      this.setSafeAreaInsets()
 
-    if (this.$colorMode.value === 'dark') this.setStatusBarStyleDark()
-    else this.setStatusBarStyleLight()
+      if (this.$colorMode.value === 'dark') this.setStatusBarStyleDark()
+      else this.setStatusBarStyleLight()
 
-    this.getSquaresFromDatabase()
-    this.getFeedbackFromDatabase()
-    this.getSolutionsFromDatabase()
+      this.locateUser()
+    }
+
+    // this.loadSquaresFromDatabase()
+    this.loadFeedbackFromDatabase()
+    // this.loadSolutionsFromDatabase()
 
     // FIXME
     // this.setAdmin(!this.$device.isMobile)
@@ -188,6 +176,18 @@ export default Vue.extend({
         this.currentRoute = String(to.name).toLowerCase()
       } else {
         this.showPopup = false
+      }
+    },
+    async checkForOnboarding() {
+      const { value } = await Storage.get({ key: 'firstOpening' })
+
+      if (value == null || !!value === true) {
+        this.$router.push('/onboarding')
+
+        await Storage.set({
+          key: 'firstOpening',
+          value: 'false',
+        })
       }
     },
     async setSafeAreaInsets() {
@@ -224,38 +224,11 @@ export default Vue.extend({
     async setStatusBarStyleLight() {
       await StatusBar.setStyle({ style: Style.Light })
     },
-    async getSquaresFromDatabase() {
-      const { body } = await this.$supabase.from<Square>('squares').select(`
-        id,
-        name,
-        created_at,
-        square_latlngs (
-          lat, lng
-        ),
-        color
-      `)
-
-      if (body == null) return
-      this.setSquares(body)
-    },
-    async getFeedbackFromDatabase() {
-      const { body } = await this.$supabase
-        .from<FeedbackResponse>('feedback')
-        .select('*')
-
-      if (body == null) return
-      this.setFeedback(body)
-    },
-    async getSolutionsFromDatabase() {
-      const { body } = await this.$supabase
-        .from<Solution>('gv_solutions')
-        .select('*')
-
-      if (body == null) return
-      this.setSolutions(body)
-    },
     ...mapActions({
       locateUser: 'locateUser',
+      loadSquaresFromDatabase: 'squares/loadSquares',
+      loadFeedbackFromDatabase: 'feedback/loadFeedback',
+      loadSolutionsFromDatabase: 'solutions/loadSolutions',
     }),
     ...mapMutations({
       setSquares: 'squares/setSquares',

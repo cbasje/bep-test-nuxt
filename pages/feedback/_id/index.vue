@@ -129,9 +129,9 @@ export default Vue.extend({
     return {
       mood: Mood.NEUTRAL,
       moodOptions: [
-        { id: 1, name: 'Warm', value: Mood.WARMER, emoji: '🥵' },
+        { id: 1, name: 'Koel', value: Mood.COLDER, emoji: '🥶' },
         { id: 2, name: 'Neutraal', value: Mood.NEUTRAL, emoji: '😐' },
-        { id: 3, name: 'Koel', value: Mood.COLDER, emoji: '🥶' },
+        { id: 3, name: 'Warm', value: Mood.WARMER, emoji: '🥵' },
       ],
       note: '',
       currentSolution: {
