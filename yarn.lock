@@ -958,10 +958,10 @@
   resolved "https://registry.npmjs.org/@capacitor/ios/-/ios-3.2.4.tgz"
   integrity sha512-d9ECeZC2uknOGB/IHaapBvuUSpYoM0J202M8Fw4OBPAkc26ysvMreHoCWCB0nd0leks53biI6DJdS60/VbYTWg==
 
-"@capacitor/status-bar@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-1.0.3.tgz#0ed10d86958b80342292e4044cc9e9630d2413fb"
-  integrity sha512-btprzQ5Spjqd6FX3eXKqRKTKZWlIZmJL4bQ79d5N1ESortOZ5NJFB25lAT/a073t8aaJv6DVdZurVFd0/0ELSA==
+"@capacitor/status-bar@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-1.0.5.tgz#a3b2a00944b70ab8ef167a5ff33e3f90c021bb28"
+  integrity sha512-SZuxjaN5Nr8FKUVlkVH3l0X2JWey0yVMfMhyE3RG7ryUSAesgs3bvkAEXSfjphsHOpt4A/rEeCJb2ZbeCBwroA==
 
 "@capacitor/storage@^1.2.2":
   version "1.2.2"
