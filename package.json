@@ -17,7 +17,7 @@
     "@capacitor/cli": "^3.2.4",
     "@capacitor/core": "^3.2.4",
     "@capacitor/geolocation": "^1.1.0",
-    "@capacitor/ios": "^3.2.4",
+    "@capacitor/ios": "^3.2.5",
     "@capacitor/status-bar": "^1.0.3",
     "@capacitor/storage": "^1.2.2",
     "@nuxtjs/axios": "^5.13.6",
