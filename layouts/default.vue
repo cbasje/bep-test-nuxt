@@ -76,7 +76,8 @@
           :is-filled="true"
           @click="locateUser()"
         >
-          <locate />
+          <locate v-if="!isLoadingLocation" />
+          <loader v-else class="animate-spin" />
         </button>
       </div>
 
@@ -125,11 +126,12 @@ import { Route } from 'vue-router/types'
 
 import Popup from '~/components/Popup.vue'
 import Locate from '~/components/icons/Locate.vue'
+import Loader from '~/components/icons/Loader.vue'
 import Smile from '~/components/icons/Smile.vue'
 import User from '~/components/icons/User.vue'
 
 export default Vue.extend({
-  components: { Popup, Locate, Smile, User },
+  components: { Popup, Locate, Loader, Smile, User },
   data() {
     return {
       currentRoute: '',
@@ -139,6 +141,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       isAdmin: 'user/isAdmin',
+      isLoadingLocation: 'isLoadingLocation'
     }),
   },
   watch: {
@@ -161,7 +164,8 @@ export default Vue.extend({
       if (this.$colorMode.value === 'dark') this.setStatusBarStyleDark()
       else this.setStatusBarStyleLight()
 
-      this.getUserLocation()
+// FIXME
+      // this.getUserLocation()
     }
 
     // this.loadSquaresFromDatabase()
@@ -226,20 +230,20 @@ export default Vue.extend({
       await StatusBar.setStyle({ style: Style.Light })
     },
     async getUserLocation() {
-      try {
-        const latLng = await this.locateUser()
+      // try {
+      //   const latLng = await this.locateUser()
 
-        console.log('locateUser', latLng)
+      //   console.log('locateUser', latLng)
 
-        this.setLocation(latLng)
-        this.setZoom(17)
-      } catch (e) {
-        console.log(e)
-      }
+      //   this.setLocation(latLng)
+      //   this.setZoom(17)
+      // } catch (e) {
+      //   console.log(e)
+      // }
     },
     ...mapActions({
       addNewUser: 'user/addNewUser',
-      locateUser: 'user/locateUser',
+      locateUser: 'locateUser',
       loadSquaresFromDatabase: 'squares/loadSquares',
       loadFeedbackFromDatabase: 'feedback/loadFeedback',
       loadSolutionsFromDatabase: 'solutions/loadSolutions',

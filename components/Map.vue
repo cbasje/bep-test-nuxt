@@ -5,9 +5,10 @@
         :zoom="zoom"
         :center="location"
         :options="{ zoomControl: false, attributionControl: false }"
-        @update:zoom="zoomUpdated"
-        @update:center="centerUpdated"
+        @ready="updateMap('ready')"
       >
+        <!-- @update:zoom="zoomUpdated"
+        @update:center="centerUpdated" -->
         <l-tile-layer v-if="$colorMode.value == 'dark'" :url="tileUrlDark" />
         <l-tile-layer v-else :url="tileUrl" />
         <!-- TODO -->
@@ -40,7 +41,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import { Square } from '~/types/square'
 import { FeedbackResponse, Mood } from '~/types/feedback-response'
@@ -74,6 +75,9 @@ export default Vue.extend({
       solutions: 'solutions/getSolutions',
     }),
   },
+  mounted() {
+    this.updateMap('mount')
+  },
   methods: {
     clickFeedback(response: FeedbackResponse) {
       const currentTimestamp = Date.now()
@@ -82,17 +86,17 @@ export default Vue.extend({
       this.timestamp = Date.now()
     },
     alertClickFeedback(response: FeedbackResponse) {
-      let mood: string;
+      let mood: string
       switch (response.mood) {
         case Mood.WARMER:
           mood = 'warmer'
-          break;
+          break
         case Mood.NEUTRAL:
           mood = 'neutraal'
-          break;
+          break
         case Mood.COLDER:
           mood = 'kouder'
-          break;
+          break
       }
       alert(`Een gebruiker heeft laten weten dat het hier ${mood} is!`)
     },
@@ -114,12 +118,19 @@ export default Vue.extend({
           return '#007AFF'
       }
     },
-    zoomUpdated(zoom: number) {
-      this.setZoom(zoom)
+    updateMap(msg: string) {
+      console.log(`updateMap: ${msg}`);
+      this.locateUser();
     },
-    centerUpdated(center: number) {
-      this.setLocation(center)
-    },
+    // zoomUpdated(zoom: number) {
+    //   this.setZoom(zoom)
+    // },
+    // centerUpdated(center: number) {
+    //   this.setLocation(center)
+    // },
+    ...mapActions({
+      locateUser: 'locateUser',
+    }),
     ...mapMutations({
       setZoom: 'setZoom',
       setLocation: 'setLocation',

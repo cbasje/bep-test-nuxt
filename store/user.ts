@@ -1,6 +1,5 @@
 import L from 'leaflet'
 
-import { Geolocation } from '@capacitor/geolocation'
 import { Storage } from '@capacitor/storage'
 
 import { ActionTree, GetterTree, MutationTree } from 'vuex/types'
@@ -40,18 +39,6 @@ export const getters: GetterTree<UserState, RootState> = {
 }
 
 export const actions: ActionTree<UserState, RootState> = {
-  async locateUser({ commit }) {
-    const pos = await Geolocation.getCurrentPosition()
-    const latLng = L.latLng(
-      pos.coords.latitude,
-      pos.coords.longitude,
-      pos.coords.altitude != null ? pos.coords.altitude : undefined
-    )
-
-    commit('setLocation', latLng)
-
-    return L.latLng(latLng)
-  },
   async addNewUser({ dispatch }) {
     const data = await this.$supabase.from<User>('unique_users').insert({ name: '' })
 
