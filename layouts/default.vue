@@ -138,7 +138,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters({
-      isAdmin: 'isAdmin',
+      isAdmin: 'user/isAdmin',
     }),
   },
   watch: {
@@ -154,13 +154,14 @@ export default Vue.extend({
     if (!this.$device.isDesktop) {
       this.setSafeAreaInsets()
 
+      // Display content under transparent status bar (Android only)
+      if (this.$device.isAndroid)
+        StatusBar.setOverlaysWebView({ overlay: true })
+
       if (this.$colorMode.value === 'dark') this.setStatusBarStyleDark()
       else this.setStatusBarStyleLight()
 
-      this.locateUser().then((latLng: L.LatLng) => {
-        this.setLocation(latLng)
-        this.setZoom(0.05)
-      })
+      this.getUserLocation()
     }
 
     // this.loadSquaresFromDatabase()
@@ -224,6 +225,18 @@ export default Vue.extend({
     async setStatusBarStyleLight() {
       await StatusBar.setStyle({ style: Style.Light })
     },
+    async getUserLocation() {
+      try {
+        const latLng = await this.locateUser()
+
+        console.log('locateUser', latLng)
+
+        this.setLocation(latLng)
+        this.setZoom(17)
+      } catch (e) {
+        console.log(e)
+      }
+    },
     ...mapActions({
       addNewUser: 'user/addNewUser',
       locateUser: 'user/locateUser',
@@ -239,7 +252,7 @@ export default Vue.extend({
       setAdmin: 'user/setAdmin',
       setAuthenticated: 'user/setAuthenticated',
       setLocation: 'setLocation',
-      setZoom: 'setZoom'
+      setZoom: 'setZoom',
     }),
   },
 })

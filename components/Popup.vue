@@ -3,7 +3,7 @@
     <div
       class="
         flex
-        overflow-x-hidden overflow-y-auto
+        overflow-x-hidden overflow-y-scroll
         fixed
         inset-0
         z-50
@@ -13,7 +13,7 @@
         items-center
       "
     >
-      <div class="relative w-screen p-6 mx-auto max-w-screen-sm">
+      <div class="relative w-screen p-3 mx-auto max-w-screen-sm max-h-screen">
         <!--content-->
         <div
           class="

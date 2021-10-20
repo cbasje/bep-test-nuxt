@@ -34,12 +34,7 @@ export const actions: ActionTree<FeedbackState, RootState> = {
   async getWeather({ rootState }) {
     const location = rootState.location
 
-    const url = `api.openweathermap.org/data/2.5/weather
-      ?lat=${location.lat}
-      &lon=${location.lng}
-      &appid=${process.env.VUE_APP_WEATHER}
-      &units=metric
-      &lang=nl`
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${process.env.VUE_APP_WEATHER}&units=metric&lang=nl`
     const { data } = await this.$axios.$get(url)
     console.log(data.main)
 

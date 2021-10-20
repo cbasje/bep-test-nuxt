@@ -125,22 +125,26 @@ export default Vue.extend({
       let feedbackResponse: FeedbackResponse
 
       try {
-        const temp = await this.getWeather()
+        // FIXME
+        // const temp = await this.getWeather()
+        const temp = 0
 
         // Check if feedback is for solution or not
         if (this.currentSolution.id === 0) {
-          this.locateUser().then((latLng: L.LatLng) => {
-            this.setLocation(latLng)
-            this.setZoom(0.05)
-          })
+          const latLng = await this.locateUser()
+
+          console.log('locateUser', latLng)
+
+          this.setLocation(latLng)
+          this.setZoom(17)
 
           feedbackResponse = {
             user: this.user.id,
             mood: this.mood,
             note: this.note,
             temp,
-            lat: this.location.lat,
-            lng: this.location.lng,
+            lat: latLng.lat,
+            lng: latLng.lng,
           }
         } else {
           feedbackResponse = {
@@ -156,7 +160,7 @@ export default Vue.extend({
         this.saveFeedback(feedbackResponse)
       } catch (e) {
         // eslint-disable-next-line no-console
-        console.error(e.message)
+        console.log(e)
       } finally {
         this.mood = Mood.NEUTRAL
         this.note = ''
