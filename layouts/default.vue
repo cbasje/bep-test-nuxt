@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="bg-white dark:bg-gray-900">
     <!-- <Tutorial/> -->
     <Map class="absolute inset-0 z-0" />
     <!-- <div class="absolute inset-0 z-50"> -->
@@ -157,7 +157,10 @@ export default Vue.extend({
       if (this.$colorMode.value === 'dark') this.setStatusBarStyleDark()
       else this.setStatusBarStyleLight()
 
-      this.locateUser()
+      this.locateUser().then((latLng: L.LatLng) => {
+        this.setLocation(latLng)
+        this.setZoom(0.05)
+      })
     }
 
     // this.loadSquaresFromDatabase()
@@ -179,15 +182,12 @@ export default Vue.extend({
       }
     },
     async checkForOnboarding() {
-      const { value } = await Storage.get({ key: 'firstOpening' })
+      const { value } = await Storage.get({ key: 'userId' })
 
-      if (value == null || !!value === true) {
+      if (value == null) {
         this.$router.push('/onboarding')
 
-        await Storage.set({
-          key: 'firstOpening',
-          value: 'false',
-        })
+        this.addNewUser()
       }
     },
     async setSafeAreaInsets() {
@@ -225,7 +225,8 @@ export default Vue.extend({
       await StatusBar.setStyle({ style: Style.Light })
     },
     ...mapActions({
-      locateUser: 'locateUser',
+      addNewUser: 'user/addNewUser',
+      locateUser: 'user/locateUser',
       loadSquaresFromDatabase: 'squares/loadSquares',
       loadFeedbackFromDatabase: 'feedback/loadFeedback',
       loadSolutionsFromDatabase: 'solutions/loadSolutions',
@@ -235,8 +236,10 @@ export default Vue.extend({
       setFeedback: 'feedback/setFeedback',
       addFeedback: 'feedback/add',
       setSolutions: 'solutions/setSolutions',
-      setAdmin: 'setAdmin',
-      setAuthenticated: 'setAuthenticated',
+      setAdmin: 'user/setAdmin',
+      setAuthenticated: 'user/setAuthenticated',
+      setLocation: 'setLocation',
+      setZoom: 'setZoom'
     }),
   },
 })

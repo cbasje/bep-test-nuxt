@@ -26,6 +26,8 @@ export const actions: ActionTree<FeedbackState, RootState> = {
     const { body } = await this.$supabase
       .from<FeedbackResponse>('feedback')
       .select('*')
+      .filter('lat', 'neq', '0')
+      .filter('lng', 'neq', '0')
 
     commit('setFeedback', body);
   },

@@ -5,6 +5,8 @@
         :zoom="zoom"
         :center="location"
         :options="{ zoomControl: false, attributionControl: false }"
+        @update:zoom="zoomUpdated"
+        @update:center="centerUpdated"
       >
         <l-tile-layer v-if="$colorMode.value == 'dark'" :url="tileUrlDark" />
         <l-tile-layer v-else :url="tileUrl" />
@@ -38,7 +40,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 import { Square } from '~/types/square'
 import { FeedbackResponse, Mood } from '~/types/feedback-response'
@@ -69,8 +71,8 @@ export default Vue.extend({
       zoom: 'getZoom',
       squares: 'squares/getSquares',
       feedback: 'feedback/getFeedback',
-      solutions: 'solutions/getSolutions'
-    })
+      solutions: 'solutions/getSolutions',
+    }),
   },
   methods: {
     clickFeedback(response: FeedbackResponse) {
@@ -80,7 +82,19 @@ export default Vue.extend({
       this.timestamp = Date.now()
     },
     alertClickFeedback(response: FeedbackResponse) {
-      alert(`Clicked feedback from ${response.person}!`)
+      let mood: string;
+      switch (response.mood) {
+        case Mood.WARMER:
+          mood = 'warmer'
+          break;
+        case Mood.NEUTRAL:
+          mood = 'neutraal'
+          break;
+        case Mood.COLDER:
+          mood = 'kouder'
+          break;
+      }
+      alert(`Een gebruiker heeft laten weten dat het hier ${mood} is!`)
     },
     clickSquare(square: Square) {
       const currentTimestamp = Date.now()
@@ -100,6 +114,16 @@ export default Vue.extend({
           return '#007AFF'
       }
     },
+    zoomUpdated(zoom: number) {
+      this.setZoom(zoom)
+    },
+    centerUpdated(center: number) {
+      this.setLocation(center)
+    },
+    ...mapMutations({
+      setZoom: 'setZoom',
+      setLocation: 'setLocation',
+    }),
   },
 })
 </script>
