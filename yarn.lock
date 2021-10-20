@@ -953,10 +953,10 @@
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/geolocation@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@capacitor/geolocation/-/geolocation-1.1.0.tgz#0f514472240d1bcf81d86b095d6df0d44a8d7268"
-  integrity sha512-YTUzIEGzbO502Eoe5LFCXcs7rVLIvtwcsWYfP/KECBsC29q746wUm5wQqr2EkFKi/ImLPdTmoXj4oXwwSgWyWA==
+"@capacitor/geolocation@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/geolocation/-/geolocation-1.1.2.tgz#db682a14817d741c5e2bea2694f04b51aa869bc5"
+  integrity sha512-J71RqyGNmQ9dIBPK831YgOPZ6Z1wj8tNlVbORIjgz+Q/Q0PzKdjxfELjbgD0hexd+YVu5++hI/atTj71ESKfWg==
 
 "@capacitor/ios@^3.2.4":
   version "3.2.4"
