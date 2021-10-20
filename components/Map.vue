@@ -34,6 +34,14 @@
           :fill-opacity="0.33"
           @click="clickSquare(square)"
         />
+
+        <l-circle-marker
+          v-if="$device.isMobileOrTablet"
+          :lat-lng="location"
+          color="white"
+          fill-color="#F59E0B"
+          fill-opacity="1"
+        />
       </l-map>
     </client-only>
   </div>
@@ -43,7 +51,6 @@
 import Vue from 'vue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import { Square } from '~/types/square'
 import { FeedbackResponse, Mood } from '~/types/feedback-response'
 
 export default Vue.extend({
@@ -86,28 +93,29 @@ export default Vue.extend({
       this.timestamp = Date.now()
     },
     alertClickFeedback(response: FeedbackResponse) {
-      let mood: string
-      switch (response.mood) {
-        case Mood.WARMER:
-          mood = 'warmer'
-          break
-        case Mood.NEUTRAL:
-          mood = 'neutraal'
-          break
-        case Mood.COLDER:
-          mood = 'kouder'
-          break
-      }
-      alert(`Een gebruiker heeft laten weten dat het hier ${mood} is!`)
+      // let mood: string
+      // switch (response.mood) {
+      //   case Mood.WARMER:
+      //     mood = 'warmer'
+      //     break
+      //   case Mood.NEUTRAL:
+      //     mood = 'neutraal'
+      //     break
+      //   case Mood.COLDER:
+      //     mood = 'kouder'
+      //     break
+      // }
+      // alert(`Een gebruiker heeft laten weten dat het hier ${mood} is!`)
+      this.$router.push(`/feedback/view/${response.id}`)
     },
-    clickSquare(square: Square) {
-      const currentTimestamp = Date.now()
-      if (currentTimestamp - this.timestamp > 100) this.alertClickSquare(square)
-      this.timestamp = Date.now()
-    },
-    alertClickSquare(square: Square) {
-      alert(`Clicked square ${square.name}!`)
-    },
+    // clickSquare(square: Square) {
+    //   const currentTimestamp = Date.now()
+    //   if (currentTimestamp - this.timestamp > 100) this.alertClickSquare(square)
+    //   this.timestamp = Date.now()
+    // },
+    // alertClickSquare(square: Square) {
+    //   alert(`Clicked square ${square.name}!`)
+    // },
     moodColor(mood: Mood): string {
       switch (mood) {
         case Mood.WARMER:
@@ -119,8 +127,8 @@ export default Vue.extend({
       }
     },
     updateMap(msg: string) {
-      console.log(`updateMap: ${msg}`);
-      this.locateUser();
+      console.log(`updateMap: ${msg}`)
+      this.locateUser()
     },
     // zoomUpdated(zoom: number) {
     //   this.setZoom(zoom)

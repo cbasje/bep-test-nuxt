@@ -2,20 +2,8 @@
   <main class="bg-white dark:bg-gray-900">
     <!-- <Tutorial/> -->
     <Map class="absolute inset-0 z-0" />
-    <!-- <div class="absolute inset-0 z-50"> -->
-    <div
-      class="
-        safe-area-container
-        absolute
-        inset-y-0
-        z-50
-        right-0
-        p-3
-        flex flex-col
-        justify-between
-        items-end
-      "
-    >
+
+    <safe-area-container x-corner="right" y-corner="top">
       <div
         class="
           inline-flex
@@ -74,16 +62,21 @@
             focus:ring-gray-300
           "
           :is-filled="true"
-          @click="locateUser()"
+          @click="
+            locateUser()
+            setZoom(17)
+          "
         >
           <locate v-if="!isLoadingLocation" />
           <loader v-else class="animate-spin" />
         </button>
       </div>
+    </safe-area-container>
 
+    <safe-area-container x-corner="right" y-corner="bottom">
       <!-- Button trigger popup -->
       <NuxtLink
-        v-if="!isAdmin && !$device.isDesktop"
+        v-if="!isAdmin && $device.isMobileOrTablet"
         to="/feedback/0"
         class="
           inline-flex
@@ -93,12 +86,13 @@
           shadow-sm
           rounded-full
           text-white
-          bg-purple-600
-          hover:bg-purple-700
+          bg-yellow-600
+          dark:bg-yellow-500
+          hover:bg-yellow-700
           focus:outline-none
           focus:ring-2
           focus:ring-offset-2
-          focus:ring-purple-500
+          focus:ring-yellow-500
           ease-linear
           transition-all
           duration-150
@@ -106,11 +100,12 @@
       >
         <smile class="w-20 h-20" />
       </NuxtLink>
+
       <popup v-show="showPopup" :save-button="false">
         <!-- The Nuxt content is all in popups -->
         <Nuxt />
       </popup>
-    </div>
+    </safe-area-container>
   </main>
 </template>
 
@@ -118,20 +113,20 @@
 import Vue from 'vue'
 
 import { StatusBar, Style } from '@capacitor/status-bar'
-import { SafeArea } from 'capacitor-plugin-safe-area'
 import { Storage } from '@capacitor/storage'
 
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { Route } from 'vue-router/types'
 
 import Popup from '~/components/Popup.vue'
+import SafeAreaContainer from '~/components/SafeAreaContainer.vue'
 import Locate from '~/components/icons/Locate.vue'
 import Loader from '~/components/icons/Loader.vue'
 import Smile from '~/components/icons/Smile.vue'
 import User from '~/components/icons/User.vue'
 
 export default Vue.extend({
-  components: { Popup, Locate, Loader, Smile, User },
+  components: { Popup, SafeAreaContainer, Locate, Loader, Smile, User },
   data() {
     return {
       currentRoute: '',
@@ -141,7 +136,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       isAdmin: 'user/isAdmin',
-      isLoadingLocation: 'isLoadingLocation'
+      isLoadingLocation: 'isLoadingLocation',
     }),
   },
   watch: {
@@ -154,18 +149,13 @@ export default Vue.extend({
     this.checkForPopup(this.$route)
     this.checkForOnboarding()
 
-    if (!this.$device.isDesktop) {
-      this.setSafeAreaInsets()
-
+    if (this.$device.isMobileOrTablet) {
       // Display content under transparent status bar (Android only)
       if (this.$device.isAndroid)
         StatusBar.setOverlaysWebView({ overlay: true })
 
       if (this.$colorMode.value === 'dark') this.setStatusBarStyleDark()
       else this.setStatusBarStyleLight()
-
-// FIXME
-      // this.getUserLocation()
     }
 
     // this.loadSquaresFromDatabase()
@@ -195,51 +185,11 @@ export default Vue.extend({
         this.addNewUser()
       }
     },
-    async setSafeAreaInsets() {
-      const { insets } = await SafeArea.getSafeAreaInsets()
-
-      // FIXME
-      for (const inset in insets) {
-        let value = 0
-        switch (inset) {
-          case 'top':
-            value = insets.top
-            break
-          case 'right':
-            value = insets.right
-            break
-          case 'bottom':
-            value = insets.bottom
-            break
-          case 'left':
-            value = insets.left
-            break
-          default:
-            break
-        }
-        document.documentElement.style.setProperty(
-          `--safe-area-inset-${inset}`,
-          `${value}px`
-        )
-      }
-    },
     async setStatusBarStyleDark() {
       await StatusBar.setStyle({ style: Style.Dark })
     },
     async setStatusBarStyleLight() {
       await StatusBar.setStyle({ style: Style.Light })
-    },
-    async getUserLocation() {
-      // try {
-      //   const latLng = await this.locateUser()
-
-      //   console.log('locateUser', latLng)
-
-      //   this.setLocation(latLng)
-      //   this.setZoom(17)
-      // } catch (e) {
-      //   console.log(e)
-      // }
     },
     ...mapActions({
       addNewUser: 'user/addNewUser',
@@ -249,22 +199,10 @@ export default Vue.extend({
       loadSolutionsFromDatabase: 'solutions/loadSolutions',
     }),
     ...mapMutations({
-      setSquares: 'squares/setSquares',
-      setFeedback: 'feedback/setFeedback',
-      addFeedback: 'feedback/add',
-      setSolutions: 'solutions/setSolutions',
       setAdmin: 'user/setAdmin',
       setAuthenticated: 'user/setAuthenticated',
-      setLocation: 'setLocation',
       setZoom: 'setZoom',
     }),
   },
 })
 </script>
-
-<style scoped>
-.safe-area-container {
-  margin: var(--safe-area-inset-top) var(--safe-area-inset-right)
-    var(--safe-area-inset-bottom) var(--safe-area-inset-left);
-}
-</style>

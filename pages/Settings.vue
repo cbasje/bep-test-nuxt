@@ -15,7 +15,7 @@
             v-model="$colorMode.preference"
             class="
               mt-1
-              focus:ring-purple-500 focus:border-purple-500
+              focus:ring-yellow-500 focus:border-yellow-500
               block
               w-full
               shadow-sm
@@ -39,14 +39,14 @@
         <p class="dark:text-white">
           Map data &copy;
           <a
-            class="text-purple-700 dark:text-purple-500 underline"
+            class="text-yellow-600 dark:text-yellow-500 underline"
             href="https://www.openstreetmap.org/copyright"
           >
             OpenStreetMap
           </a>
           contributors, Imagery ©
           <a
-            class="text-purple-700 dark:text-purple-500 underline"
+            class="text-yellow-600 dark:text-yellow-500 underline"
             href="https://www.mapbox.com/"
           >
             Mapbox
@@ -68,7 +68,7 @@ export default Vue.extend({
   components: { PopupContent },
   methods: {
     updateStatusBar() {
-      if (this.$device.isDesktop) return
+      if (!this.$device.isMobileOrTablet) return
 
       if (this.$colorMode.value === 'dark') this.setStatusBarStyleDark()
       else this.setStatusBarStyleLight()

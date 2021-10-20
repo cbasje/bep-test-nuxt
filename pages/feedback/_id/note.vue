@@ -1,7 +1,7 @@
 <template>
   <popup-content>
     <template #header>
-      {{ currentSolution.name }}
+      {{ currentSolution.name ? currentSolution.name : title }}
     </template>
 
     <template #body>
@@ -20,7 +20,7 @@
               rows="3"
               class="
                 shadow-sm
-                focus:ring-purple-500 focus:border-purple-500
+                focus:ring-yellow-500 focus:border-yellow-500
                 mt-1
                 block
                 w-full
@@ -87,10 +87,8 @@ export default Vue.extend({
     return {
       mood: Mood.NEUTRAL,
       note: '',
-      currentSolution: {
-        id: 0,
-        name: 'Feedback',
-      },
+      currentSolution: {} as Solution,
+      title: 'Feedback geven',
     }
   },
   computed: {
@@ -126,8 +124,8 @@ export default Vue.extend({
 
       try {
         // FIXME
-        const temp = await this.getWeather()
-        // const temp = 0
+        // const temp = await this.getWeather()
+        const temp = 0
 
         // Check if feedback is for solution or not
         if (this.currentSolution.id === 0) {
@@ -147,6 +145,7 @@ export default Vue.extend({
             mood: this.mood,
             note: this.note,
             temp,
+            solution: this.currentSolution.id,
             lat: 0,
             lng: 0,
           }

@@ -29,7 +29,7 @@
             focus:outline-none
           "
         >
-          <button class="absolute right-5 top-5 text-purple-600" @click="$router.push('/')">
+          <button class="absolute right-5 top-5 text-yellow-600" @click="$router.push('/')">
             <close />
           </button>
 

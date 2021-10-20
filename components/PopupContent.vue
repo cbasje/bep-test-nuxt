@@ -2,6 +2,7 @@
   <section>
     <!--header-->
     <div
+      v-if="hasHeaderSlot"
       class="
         flex
         items-start
@@ -16,8 +17,9 @@
         <slot name="header" />
       </h3>
     </div>
+
     <!--body-->
-    <div class="mt-5 md:mt-0 md:col-span-2">
+    <div v-if="hasBodySlot" class="mt-5 md:mt-0 md:col-span-2">
       <div class="sm:overflow-hidden">
         <div class="px-4 py-5 space-y-6 sm:p-6">
           <slot name="body" />
@@ -48,8 +50,14 @@ import Vue from 'vue'
 
 export default Vue.extend({
   computed: {
+    hasHeaderSlot() {
+      return !!this.$slots.header
+    },
     hasFooterSlot() {
       return !!this.$slots.footer
+    },
+    hasBodySlot() {
+      return !!this.$slots.body
     },
   },
 })

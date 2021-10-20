@@ -1,15 +1,13 @@
 <template>
   <popup-content>
     <template #header>
-      {{ currentSolution.name }}
+      {{ currentSolution.name ? currentSolution.name : title }}
     </template>
 
     <template #body>
       <form id="submitForm" @submit.prevent>
         <div class="flex justify-center pb-5">
-          <span class="text-9xl">{{
-            moodOptions[mood - 1].emoji
-          }}</span>
+          <span class="text-9xl">{{ moodOptions[mood - 1].emoji }}</span>
         </div>
 
         <div class="grid grid-cols-3 gap-6">
@@ -32,8 +30,8 @@
                   />
                   <span
                     :class="`
-                      bg-purple-600
-                      hover:bg-purple-700
+                      bg-yellow-600
+                      hover:bg-yellow-700
                       h-2
                       absolute
                       left-0
@@ -53,7 +51,15 @@
                 max="3"
                 class="w-full"
               />
-              <div class="flex justify-between mt-2 text-xs text-gray-600 dark:text-gray-400">
+              <div
+                class="
+                  flex
+                  justify-between
+                  mt-2
+                  text-xs text-gray-600
+                  dark:text-gray-400
+                "
+              >
                 <span
                   v-for="option in moodOptions"
                   :key="option.id"
@@ -106,10 +112,8 @@ export default Vue.extend({
         { id: 3, name: 'Warm', value: Mood.WARMER, emoji: '🥵' },
       ],
       note: '',
-      currentSolution: {
-        id: 0,
-        name: 'Feedback',
-      },
+      currentSolution: {} as Solution,
+      title: 'Feedback geven',
     }
   },
   computed: {

@@ -12,9 +12,10 @@
       font-medium
       rounded-md
       text-white
-      bg-purple-600
-      hover:bg-purple-700
-      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
+      bg-yellow-600
+      dark:bg-yellow-500
+      hover:bg-yellow-700
+      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500
       ease-linear
       transition-all
       duration-150
@@ -35,12 +36,12 @@
       text-sm
       font-medium
       rounded-md
-      text-purple-700
-      dark:text-purple-500
+      text-yellow-600
+      dark:text-yellow-500
       background-transparent
       hover:bg-gray-100
       dark:hover:bg-gray-800
-      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500
+      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500
       ease-linear
       transition-all
       duration-150
