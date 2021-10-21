@@ -15,16 +15,23 @@
         v-html="$t('onboarding.disclaimer')"
       />
     </template>
+
+    <template #footer>
+      <popup-button :is-filled="true" @click="$router.push(localePath('/'))">
+        {{ $t('onboarding.closeButton') }}
+      </popup-button>
+    </template>
   </popup-content>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import PopupButton from '~/components/PopupButton.vue'
 
 import PopupContent from '~/components/PopupContent.vue'
 import UndrawMap from '~/components/svg/UndrawMap.vue'
 
 export default Vue.extend({
-  components: { PopupContent, UndrawMap },
+  components: { PopupContent, UndrawMap, PopupButton },
 })
 </script>

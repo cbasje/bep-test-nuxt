@@ -3,7 +3,9 @@
     <template #header>Feedback: {{ moodEmoji(currentResponse.mood) }}</template>
 
     <template #body>
-      {{ currentResponse.note }}
+      <p class="text-base text-black dark:text-white">
+        {{ currentResponse.note }}
+      </p>
     </template>
   </popup-content>
 </template>
@@ -19,13 +21,13 @@ export default Vue.extend({
   components: { PopupContent },
   data() {
     return {
-      currentResponse: {} as FeedbackResponse
+      currentResponse: {} as FeedbackResponse,
     }
   },
   computed: {
     ...mapGetters({
-      getFeedbackById: 'feedback/getFeedbackById'
-    })
+      getFeedbackById: 'feedback/getFeedbackById',
+    }),
   },
   mounted() {
     this.checkForId()
@@ -50,7 +52,7 @@ export default Vue.extend({
         case Mood.COLDER:
           return '🥶'
       }
-    }
+    },
   },
 })
 </script>

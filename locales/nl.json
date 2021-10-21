@@ -2,7 +2,8 @@
   "onboarding": {
     "title": "Welkom!",
     "body": "Heat City Map is een app om een overzicht te krijgen van koele plekken op hete dagen, op basis van de feedback van gebruikers. Zo kun je meteen zien waar je lekker koel kunt picknicken, wandelen of fietsen, etc. <br /><br />Om een duidelijker beeld te krijgen van hitte in de stad heeft de app ook jouw feedback nodig! Druk op de grote knop rechtsonder om te laten weten of je het op een bepaalde plek warm of koud hebt en laat eventueel een notitie achter waarom je je zo voelt. Hierdoor kan de gemeente meteen zien hoe ze de plek kunnen verbeteren.",
-    "disclaimer": "Disclaimer: de app slaat alleen feedback en locatie op; geen persoonlijke data. Je locatie is ook niet gelinkt aan je persoonlijke informatie."
+    "disclaimer": "Disclaimer: de app slaat alleen feedback en locatie op; geen persoonlijke data. Je locatie is ook niet gelinkt aan je persoonlijke informatie.",
+    "closeButton": "Sluiten"
   },
   "settings": {
     "title": "Instellingen",

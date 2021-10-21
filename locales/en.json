@@ -2,7 +2,8 @@
   "onboarding": {
     "title": "Welcome!",
     "body": "Heat City Map is an app to get an overview of cool places on hot days, based on feedback provided by users. This way, you can see immediately where you can picknick, ride your bike or take a walk, etc. <br /><br />To get a better overview, the app needs your feedback as well! Click on the big button in the right bottom corner to let the app know if you feel hot or cold where you are. You can also add a note to tell what makes you feel that way. This would allow local government to know what to improve about the place.",
-    "disclaimer": "Disclaimer: the app only saves your feedback and location; no personal data. Your location is not linked to any personal information."
+    "disclaimer": "Disclaimer: the app only saves your feedback and location; no personal data. Your location is not linked to any personal information.",
+    "closeButton": "Close"
   },
   "settings": {
     "title": "Settings",
