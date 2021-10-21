@@ -29,22 +29,24 @@ export const actions: ActionTree<FeedbackState, RootState> = {
       .filter('lat', 'neq', '0')
       .filter('lng', 'neq', '0')
 
-    commit('setFeedback', body);
+    commit('setFeedback', body)
   },
   async getWeather({ rootState }) {
     const location = rootState.location
 
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${process.env.VUE_APP_WEATHER}&units=metric&lang=nl`
-    // const url = 'https://jsonplaceholder.typicode.com/todos/1'
-    console.log(url);
+    const baseUrl = 'https://bep-test-api.herokuapp.com'
+    const url = `${baseUrl}/weather?lat=${location.lat}&lon=${location.lng}&appid=${process.env.VUE_APP_WEATHER}&units=metric&lang=nl`
+    console.log(url)
 
     const { main } = await this.$axios.$get(url)
-    console.log(main);
+    console.log(main)
 
     return main.temp
   },
   async saveFeedback({ commit }, payload: FeedbackResponse) {
-    const { body } = await this.$supabase.from<FeedbackResponse>('feedback').insert(payload)
+    const { body } = await this.$supabase
+      .from<FeedbackResponse>('feedback')
+      .insert(payload)
 
     commit('addMultiple', body)
   },
