@@ -81,7 +81,7 @@
           $router.push(
             localeLocation({
               path: `${currentSolution.id ? currentSolution.id : 0}/note`,
-              query: { mood: mood },
+              params: { mood: mood },
             })
           )
         "
@@ -131,7 +131,7 @@ export default Vue.extend({
       ],
       note: '',
       currentSolution: {
-        id: 0
+        id: 0,
       } as Solution,
       title: this.$t('feedback.title'),
     }
