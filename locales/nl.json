@@ -6,6 +6,7 @@
   },
   "settings": {
     "title": "Instellingen",
+    "language": "Taal",
     "colorMode": "Donkere modus",
     "modes": {
       "system": "Systeem",

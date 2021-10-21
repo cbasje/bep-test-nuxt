@@ -5,14 +5,36 @@
     <template #body>
       <div class="grid grid-cols-3 gap-6">
         <div class="col-span-6 sm:col-span-3">
-          <nuxt-link
-            v-for="locale in availableLocales"
-            :key="locale.code"
-            :to="switchLocalePath(locale.code)"
-            class="dark:text-white"
+          <label
+            for="title"
+            class="block text-sm font-medium text-gray-700 dark:text-gray-200"
           >
-            {{ locale.icon }} {{ locale.name }}
-          </nuxt-link>
+            {{ $t('settings.language') }}
+          </label>
+          <select
+            v-model="$i18n.locale"
+            class="
+              mt-1
+              focus:ring-yellow-500 focus:border-yellow-500
+              block
+              w-full
+              shadow-sm
+              sm:text-sm
+              bg-transparent
+              dark:text-white
+              border-gray-300
+              dark:border-gray-600
+              rounded-md
+            "
+          >
+            <option
+              v-for="locale in availableLocales"
+              :key="locale.code"
+              :value="locale.code"
+            >
+              {{ locale.icon }} {{ locale.name }}
+            </option>
+          </select>
         </div>
       </div>
 
@@ -49,7 +71,10 @@
       </div>
 
       <div>
-        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400" v-html="$t('settings.mapAttribution')" />
+        <p
+          class="mt-2 text-sm text-gray-500 dark:text-gray-400"
+          v-html="$t('settings.mapAttribution')"
+        />
       </div>
     </template>
   </popup-content>
