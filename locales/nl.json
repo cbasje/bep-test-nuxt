@@ -1,0 +1,33 @@
+{
+  "onboarding": {
+    "title": "Welkom!",
+    "body": "Heat City Map is een app om een overzicht te krijgen van koele plekken op hete dagen, op basis van de feedback van gebruikers. Zo kun je meteen zien waar je lekker koel kunt picknicken, wandelen of fietsen, etc. <br /><br />Om een duidelijker beeld te krijgen van hitte in de stad heeft de app ook jouw feedback nodig! Druk op de grote knop rechtsonder om te laten weten of je het op een bepaalde plek warm of koud hebt en laat eventueel een notitie achter waarom je je zo voelt. Hierdoor kan de gemeente meteen zien hoe ze de plek kunnen verbeteren.",
+    "disclaimer": "Disclaimer: de app slaat alleen feedback en locatie op; geen persoonlijke data. Je locatie is ook niet gelinkt aan je persoonlijke informatie."
+  },
+  "settings": {
+    "title": "Instellingen",
+    "colorMode": "Donkere modus",
+    "modes": {
+      "system": "Systeem",
+      "light": "Licht",
+      "dark": "Donker"
+    },
+    "mapAttribution": "Kaartdata &copy; <a class='text-yellow-600 dark:text-yellow-500 underline' href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> vrijwilligers, Beeld &copy; <a class='text-yellow-600 dark:text-yellow-500 underline' href='https://www.mapbox.com/'>Mapbox</a>"
+  },
+  "feedback": {
+    "title": "Feedback geven",
+    "question": "Heb je het warm of koud op deze plek?",
+    "moodOptions": {
+      "cold": "Koud",
+      "neutral": "Neutraal",
+      "hot": "Warm"
+    },
+    "note": "Notitie",
+    "noteQuestion": "Wat vind je niet goed aan deze plek? Of wat vind je wel goed?",
+    "notePlaceholder": "Typ hier wat meer over je ervaring...",
+    "nextButton": "Volgende",
+    "backButton": "Terug",
+    "skipButton": "Overslaan",
+    "saveButton": "Opslaan"
+  }
+}

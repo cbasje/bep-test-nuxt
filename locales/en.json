@@ -1,0 +1,33 @@
+{
+  "onboarding": {
+    "title": "Welcome!",
+    "body": "Heat City Map is an app to get an overview of cool places on hot days, based on feedback provided by users. This way, you can see immediately where you can picknick, ride your bike or take a walk, etc. <br /><br />To get a better overview, the app needs your feedback as well! Click on the big button in the right bottom corner to let the app know if you feel hot or cold where you are. You can also add a note to tell what makes you feel that way. This would allow local government to know what to improve about the place.",
+    "disclaimer": "Disclaimer: the app only saves your feedback and location; no personal data. Your location is not linked to any personal information."
+  },
+  "settings": {
+    "title": "Settings",
+    "colorMode": "Dark Mode",
+    "modes": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "mapAttribution": "Map data &copy; <a class='text-yellow-600 dark:text-yellow-500 underline' href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors, Imagery © <a class='text-yellow-600 dark:text-yellow-500 underline' href='https://www.mapbox.com/'>Mapbox</a>"
+  },
+  "feedback": {
+    "title": "Give feedback",
+    "question": "Are you cold or hot at this place?",
+    "moodOptions": {
+      "cold": "Cold",
+      "neutral": "Neutral",
+      "hot": "Hot"
+    },
+    "note": "Add note",
+    "noteQuestion": "Wat do you think is good about this place? And what is bad?",
+    "notePlaceholder": "Type here a little more about your experience...",
+    "nextButton": "Next",
+    "backButton": "Back",
+    "skipButton": "Skip",
+    "saveButton": "Save"
+  }
+}

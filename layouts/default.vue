@@ -25,7 +25,7 @@
       >
         <!-- Button trigger popup -->
         <NuxtLink
-          to="/settings"
+          :to="localePath('/settings')"
           class="
             inline-flex
             justify-center
@@ -76,8 +76,8 @@
     <safe-area-container x-corner="right" y-corner="bottom">
       <!-- Button trigger popup -->
       <NuxtLink
-        v-if="!isAdmin && $device.isMobileOrTablet"
-        to="/feedback/0"
+        v-if="!isAdmin"
+        :to="localePath('/feedback/0')"
         class="
           inline-flex
           justify-center
@@ -163,13 +163,12 @@ export default Vue.extend({
     // this.loadSolutionsFromDatabase()
 
     // FIXME
-    // this.setAdmin(!this.$device.isMobile)
     this.setAdmin(false)
     this.setAuthenticated(true)
   },
   methods: {
     checkForPopup(to: Route) {
-      if (to.path !== '/') {
+      if (to.path !== this.localePath('/')) {
         this.showPopup = true
         this.currentRoute = String(to.name).toLowerCase()
       } else {
@@ -180,7 +179,7 @@ export default Vue.extend({
       const { value } = await Storage.get({ key: 'userId' })
 
       if (value == null) {
-        this.$router.push('/onboarding')
+        this.$router.push(this.localePath('/onboarding'))
 
         this.addNewUser()
       }

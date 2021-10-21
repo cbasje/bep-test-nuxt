@@ -40,9 +40,10 @@ export const getters: GetterTree<UserState, RootState> = {
 
 export const actions: ActionTree<UserState, RootState> = {
   async addNewUser({ dispatch }) {
-    const data = await this.$supabase.from<User>('unique_users').insert({ name: '' })
+    const { body } = await this.$supabase.from<User>('unique_users').insert({ name: '' })
 
-    dispatch('saveNewUser', data)
+    if (body == null) return
+    dispatch('saveNewUser', body[0])
   },
   async saveNewUser({ commit }, user: User) {
     await Storage.set({

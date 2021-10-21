@@ -30,19 +30,11 @@ export const getters: GetterTree<RootState, RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  // async locateUser({ commit, dispatch }) {
-  //   const location = await dispatch('user/locateUser')
-
-  //   console.log('locateUser', location)
-
-  //   commit('setLocation', location)
-  //   // commit('setZoom', 17)
-  // }
   async locateUser({ commit }) {
     commit('setLoadingLocation', true)
 
     const pos = await Geolocation.getCurrentPosition({
-      enableHighAccuracy: true
+      enableHighAccuracy: true,
     })
     const latLng = L.latLng(
       pos.coords.latitude,
@@ -52,8 +44,6 @@ export const actions: ActionTree<RootState, RootState> = {
 
     commit('setLocation', latLng)
     commit('user/setLocation', latLng)
-
-    return latLng
   },
 }
 
@@ -67,5 +57,5 @@ export const mutations: MutationTree<RootState> = {
   },
   setLoadingLocation(state: RootState, payload: boolean) {
     state.isLoadingLocation = payload
-  }
+  },
 }

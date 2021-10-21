@@ -39,6 +39,7 @@
         dark:border-gray-700
         rounded-b
       "
+      :style="`justify-content: ${hasMultipleFooterButtons ? 'space-between' : 'flex-end'}`"
     >
       <slot name="footer" />
     </div>
@@ -59,6 +60,9 @@ export default Vue.extend({
     hasBodySlot() {
       return !!this.$slots.body
     },
+    hasMultipleFooterButtons() {
+      return this.$slots.footer !== undefined && this.$slots.footer.length > 1
+    }
   },
 })
 </script>

@@ -36,11 +36,11 @@
         />
 
         <l-circle-marker
-          v-if="$device.isMobileOrTablet"
+          v-if="!isAdmin"
           :lat-lng="location"
           color="white"
           fill-color="#F59E0B"
-          fill-opacity="1"
+          :fill-opacity="1"
         />
       </l-map>
     </client-only>
@@ -77,6 +77,7 @@ export default Vue.extend({
     ...mapGetters({
       location: 'getLocation',
       zoom: 'getZoom',
+      isAdmin: 'user/isAdmin',
       squares: 'squares/getSquares',
       feedback: 'feedback/getFeedback',
       solutions: 'solutions/getSolutions',
@@ -106,7 +107,7 @@ export default Vue.extend({
       //     break
       // }
       // alert(`Een gebruiker heeft laten weten dat het hier ${mood} is!`)
-      this.$router.push(`/feedback/view/${response.id}`)
+      this.$router.push(this.localePath(`/feedback/view/${response.id}`))
     },
     // clickSquare(square: Square) {
     //   const currentTimestamp = Date.now()

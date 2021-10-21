@@ -39,6 +39,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/i18n',
     '@nuxtjs/pwa',
     'nuxt-leaflet',
 
@@ -85,5 +86,17 @@ export default {
     locales: ['nl'],
     timezone: true,
     defaultTimezone: 'Europe/Amsterdam',
+  },
+
+  i18n: {
+    locales: [
+      { code: 'en', name: 'English', iso: 'en-US', file: 'en.json' },
+      { code: 'nl', name: 'Nederlands', iso: 'nl-NL', file: 'nl.json' }
+    ],
+    defaultLocale: 'en',
+    langDir: '~/locales/',
+    vueI18n: {
+      fallbackLocale: 'en',
+    }
   },
 }

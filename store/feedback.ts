@@ -36,13 +36,13 @@ export const actions: ActionTree<FeedbackState, RootState> = {
 
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${process.env.VUE_APP_WEATHER}&units=metric&lang=nl`
     const { data } = await this.$axios.$get(url)
-    console.log(data.main)
 
     return data.main.temp
   },
   async saveFeedback({ commit }, payload: FeedbackResponse) {
-    const data = await this.$supabase.from<FeedbackResponse>('feedback').insert(payload)
-    commit('add', data)
+    const { body } = await this.$supabase.from<FeedbackResponse>('feedback').insert(payload)
+
+    commit('addMultiple', body)
   },
 }
 

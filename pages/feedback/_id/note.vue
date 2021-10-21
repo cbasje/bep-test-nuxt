@@ -11,7 +11,7 @@
             for="note"
             class="block text-sm font-medium text-gray-700 dark:text-gray-200"
           >
-            Notitie
+            {{ $t('feedback.note') }}
           </label>
           <div class="mt-1">
             <textarea
@@ -31,11 +31,11 @@
                 dark:border-gray-600
                 rounded-md
               "
-              placeholder="Typ hier wat meer over je ervaring"
+              :placeholder="$t('feedback.notePlaceholder')"
             />
           </div>
           <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-            Wat vind je niet goed aan deze plek? Of wat vind je wel goed?
+            {{ $t('feedback.noteQuestion') }}
           </p>
         </div>
 
@@ -46,25 +46,42 @@
     <template #footer>
       <popup-button
         :is-filled="false"
-        class="mr-2"
         @click="
-          saveChanges()
-          $emit('closePopup')
-          $router.push({ path: '/' })
+          $router.push(
+            localePath(
+              `/feedback/${
+                currentSolution.id != undefined ? currentSolution.id : 0
+              }`
+            )
+          )
         "
       >
-        Overslaan
+        {{ $t('feedback.backButton') }}
       </popup-button>
-      <popup-button
-        :is-filled="true"
-        @click="
-          saveChanges()
-          $emit('closePopup')
-          $router.push({ path: '/' })
-        "
-      >
-        Opslaan
-      </popup-button>
+
+      <div>
+        <popup-button
+          :is-filled="false"
+          class="mr-2"
+          @click="
+            saveChanges()
+            $emit('closePopup')
+            $router.push(localePath('/'))
+          "
+        >
+          {{ $t('feedback.skipButton') }}
+        </popup-button>
+        <popup-button
+          :is-filled="true"
+          @click="
+            saveChanges()
+            $emit('closePopup')
+            $router.push(localePath('/'))
+          "
+        >
+          {{ $t('feedback.saveButton') }}
+        </popup-button>
+      </div>
     </template>
   </popup-content>
 </template>
@@ -88,7 +105,7 @@ export default Vue.extend({
       mood: Mood.NEUTRAL,
       note: '',
       currentSolution: {} as Solution,
-      title: 'Feedback geven',
+      title: this.$t('feedback.title'),
     }
   },
   computed: {
@@ -119,7 +136,7 @@ export default Vue.extend({
         this.mood = Number(this.$route.query.mood)
       }
     },
-    async saveChanges() {
+    saveChanges() {
       let feedbackResponse: FeedbackResponse
 
       try {
@@ -128,16 +145,14 @@ export default Vue.extend({
         const temp = 0
 
         // Check if feedback is for solution or not
-        if (this.currentSolution.id === 0) {
-          const location: L.LatLng = await this.locateUser()
-
+        if (this.currentSolution.id === undefined) {
           feedbackResponse = {
             user: this.user.id,
             mood: this.mood,
             note: this.note,
             temp,
-            lat: location.lat,
-            lng: location.lng,
+            lat: this.location.lat,
+            lng: this.location.lng,
           }
         } else {
           feedbackResponse = {
@@ -161,7 +176,6 @@ export default Vue.extend({
       }
     },
     ...mapActions({
-      locateUser: 'locateUser',
       getWeather: 'feedback/getWeather',
       saveFeedback: 'feedback/saveFeedback',
     }),

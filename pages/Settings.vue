@@ -1,15 +1,28 @@
 <template>
   <popup-content>
-    <template #header>Settings</template>
+    <template #header>{{ $t('settings.title') }}</template>
 
     <template #body>
+      <div class="grid grid-cols-3 gap-6">
+        <div class="col-span-6 sm:col-span-3">
+          <nuxt-link
+            v-for="locale in availableLocales"
+            :key="locale.code"
+            :to="switchLocalePath(locale.code)"
+            class="dark:text-white"
+          >
+            {{ locale.icon }} {{ locale.name }}
+          </nuxt-link>
+        </div>
+      </div>
+
       <div class="grid grid-cols-3 gap-6">
         <div class="col-span-6 sm:col-span-3">
           <label
             for="title"
             class="block text-sm font-medium text-gray-700 dark:text-gray-200"
           >
-            Color mode
+            {{ $t('settings.colorMode') }}
           </label>
           <select
             v-model="$colorMode.preference"
@@ -28,30 +41,15 @@
             "
             @input="updateStatusBar"
           >
-            <option value="system">System</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
+            <option value="system">{{ $t('settings.modes.system') }}</option>
+            <option value="light">{{ $t('settings.modes.light') }}</option>
+            <option value="dark">{{ $t('settings.modes.dark') }}</option>
           </select>
         </div>
       </div>
 
       <div>
-        <p class="dark:text-white">
-          Map data &copy;
-          <a
-            class="text-yellow-600 dark:text-yellow-500 underline"
-            href="https://www.openstreetmap.org/copyright"
-          >
-            OpenStreetMap
-          </a>
-          contributors, Imagery ©
-          <a
-            class="text-yellow-600 dark:text-yellow-500 underline"
-            href="https://www.mapbox.com/"
-          >
-            Mapbox
-          </a>
-        </p>
+        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400" v-html="$t('settings.mapAttribution')" />
       </div>
     </template>
   </popup-content>
@@ -59,6 +57,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+// import { LocaleObject } from '@nuxtjs/i18n'
 
 import { StatusBar, Style } from '@capacitor/status-bar'
 
@@ -66,6 +65,15 @@ import PopupContent from '~/components/PopupContent.vue'
 
 export default Vue.extend({
   components: { PopupContent },
+  computed: {
+    availableLocales() {
+      // FIXME
+      return [
+        { code: 'en', name: 'English', icon: '🇺🇸' },
+        { code: 'nl', name: 'Nederlands', icon: '🇳🇱' },
+      ]
+    },
+  },
   methods: {
     updateStatusBar() {
       if (!this.$device.isMobileOrTablet) return

@@ -16,7 +16,7 @@
               for="range"
               class="block text-base font-medium text-black dark:text-white"
             >
-              Heb je het warm of koud op deze plek?
+              {{ $t('feedback.question') }}
             </label>
 
             <div class="mt-1">
@@ -64,8 +64,9 @@
                   v-for="option in moodOptions"
                   :key="option.id"
                   class="w-8 text-center"
-                  >{{ option.name }}</span
                 >
+                  {{ option.name }}
+                </span>
               </div>
             </div>
           </div>
@@ -77,13 +78,15 @@
       <popup-button
         :is-filled="true"
         @click="
-          $router.push({
-            path: `${currentSolution.id}/note`,
-            query: { mood: mood },
-          })
+          $router.push(
+            localeLocation({
+              path: `${currentSolution.id}/note`,
+              query: { mood: mood },
+            })
+          )
         "
       >
-        Volgende
+        {{ $t('feedback.nextButton') }}
       </popup-button>
     </template>
   </popup-content>
@@ -91,7 +94,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import L from 'leaflet'
 
@@ -107,13 +110,28 @@ export default Vue.extend({
     return {
       mood: Mood.NEUTRAL,
       moodOptions: [
-        { id: 1, name: 'Koel', value: Mood.COLDER, emoji: '🥶' },
-        { id: 2, name: 'Neutraal', value: Mood.NEUTRAL, emoji: '😐' },
-        { id: 3, name: 'Warm', value: Mood.WARMER, emoji: '🥵' },
+        {
+          id: 1,
+          name: this.$t('feedback.moodOptions.cold'),
+          value: Mood.COLDER,
+          emoji: '🥶',
+        },
+        {
+          id: 2,
+          name: this.$t('feedback.moodOptions.neutral'),
+          value: Mood.NEUTRAL,
+          emoji: '😐',
+        },
+        {
+          id: 3,
+          name: this.$t('feedback.moodOptions.hot'),
+          value: Mood.WARMER,
+          emoji: '🥵',
+        },
       ],
       note: '',
       currentSolution: {} as Solution,
-      title: 'Feedback geven',
+      title: this.$t('feedback.title'),
     }
   },
   computed: {
@@ -123,6 +141,7 @@ export default Vue.extend({
   },
   mounted() {
     this.checkForId()
+    this.updateLocation()
   },
   methods: {
     checkForId() {
@@ -136,6 +155,12 @@ export default Vue.extend({
         }
       }
     },
+    async updateLocation() {
+      await this.locateUser()
+    },
+    ...mapActions({
+      locateUser: 'locateUser',
+    }),
     ...mapMutations({
       setLocation: 'setLocation',
     }),
