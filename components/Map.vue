@@ -5,7 +5,6 @@
         :zoom="zoom"
         :center="location"
         :options="{ zoomControl: false, attributionControl: false }"
-        @ready="updateMap('ready')"
       >
         <!-- @update:zoom="zoomUpdated"
         @update:center="centerUpdated" -->
@@ -84,7 +83,7 @@ export default Vue.extend({
     }),
   },
   mounted() {
-    this.updateMap('mount')
+    this.getUserLocation()
   },
   methods: {
     clickFeedback(response: FeedbackResponse) {
@@ -94,19 +93,6 @@ export default Vue.extend({
       this.timestamp = Date.now()
     },
     alertClickFeedback(response: FeedbackResponse) {
-      // let mood: string
-      // switch (response.mood) {
-      //   case Mood.WARMER:
-      //     mood = 'warmer'
-      //     break
-      //   case Mood.NEUTRAL:
-      //     mood = 'neutraal'
-      //     break
-      //   case Mood.COLDER:
-      //     mood = 'kouder'
-      //     break
-      // }
-      // alert(`Een gebruiker heeft laten weten dat het hier ${mood} is!`)
       this.$router.push(this.localePath(`/feedback/view/${response.id}`))
     },
     // clickSquare(square: Square) {
@@ -127,8 +113,7 @@ export default Vue.extend({
           return '#007AFF'
       }
     },
-    updateMap(msg: string) {
-      console.log(`updateMap: ${msg}`)
+    getUserLocation() {
       this.locateUser()
     },
     // zoomUpdated(zoom: number) {

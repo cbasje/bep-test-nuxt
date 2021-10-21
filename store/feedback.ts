@@ -35,9 +35,13 @@ export const actions: ActionTree<FeedbackState, RootState> = {
     const location = rootState.location
 
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=${process.env.VUE_APP_WEATHER}&units=metric&lang=nl`
-    const { data } = await this.$axios.$get(url)
+    // const url = 'https://jsonplaceholder.typicode.com/todos/1'
+    console.log(url);
 
-    return data.main.temp
+    const { main } = await this.$axios.$get(url)
+    console.log(main);
+
+    return main.temp
   },
   async saveFeedback({ commit }, payload: FeedbackResponse) {
     const { body } = await this.$supabase.from<FeedbackResponse>('feedback').insert(payload)

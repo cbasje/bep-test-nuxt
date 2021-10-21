@@ -155,8 +155,16 @@ export default Vue.extend({
         }
       }
     },
+    async getWeather(location: L.LatLng) {
+      const { data } = await this.$axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lng}&appid=4b3ab421eec8ff1a3dd622d82f1225d6&units=metric&lang=nl`
+      )
+      console.log('getWeather', data)
+    },
     async updateLocation() {
-      await this.locateUser()
+      const location = await this.locateUser()
+
+      this.getWeather(location)
     },
     ...mapActions({
       locateUser: 'locateUser',

@@ -44,6 +44,8 @@ export const actions: ActionTree<RootState, RootState> = {
 
     commit('setLocation', latLng)
     commit('user/setLocation', latLng)
+
+    return latLng
   },
 }
 

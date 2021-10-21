@@ -136,13 +136,13 @@ export default Vue.extend({
         this.mood = Number(this.$route.query.mood)
       }
     },
-    saveChanges() {
+    async saveChanges() {
       let feedbackResponse: FeedbackResponse
 
       try {
         // FIXME
-        // const temp = await this.getWeather()
-        const temp = 0
+        const temp = await this.getWeather()
+        // const temp = 0
 
         // Check if feedback is for solution or not
         if (this.currentSolution.id === undefined) {

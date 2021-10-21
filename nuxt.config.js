@@ -58,11 +58,18 @@ export default {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzMzUzMDgwOCwiZXhwIjoxOTQ5MTA2ODA4fQ.m6JZ0Ya6g_qFyFp-eGpQ33azT1Yqq2fYL8DfowV256E',
     VUE_APP_MAPBOX_TOKEN:
       'pk.eyJ1IjoiYmVuamFtaWluIiwiYSI6ImNraWt5OW14aDBlZzgycWw0aGc3YjVnZmwifQ.Y0rTPF_rYzK10v2Ydogsag',
-    VUE_APP_WEATHER: '4b3ab421eec8ff1a3dd622d82f1225d6',
+    VUE_APP_WEATHER: 'c8826ed1efa8ccdfd854834e1a85fae6',
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    // baseUrl: 'https://api.openweathermap.org/data/2.5/',
+    // headers: {
+    //   common: {
+    //     'Access-Control-Allow-Origin': '*',
+    //   },
+    // },
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -91,12 +98,12 @@ export default {
   i18n: {
     locales: [
       { code: 'en', name: 'English', iso: 'en-US', file: 'en.json' },
-      { code: 'nl', name: 'Nederlands', iso: 'nl-NL', file: 'nl.json' }
+      { code: 'nl', name: 'Nederlands', iso: 'nl-NL', file: 'nl.json' },
     ],
     defaultLocale: 'en',
     langDir: '~/locales/',
     vueI18n: {
       fallbackLocale: 'en',
-    }
+    },
   },
 }
