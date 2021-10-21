@@ -79,10 +79,7 @@
         :is-filled="true"
         @click="
           $router.push(
-            localeLocation({
-              path: `${currentSolution.id ? currentSolution.id : 0}/note`,
-              params: { mood: mood },
-            })
+            localePath(`${currentSolution.id ? currentSolution.id : 0}/note?mood=${mood}`)
           )
         "
       >
