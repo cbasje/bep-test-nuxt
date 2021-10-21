@@ -79,12 +79,11 @@
         :is-filled="true"
         @click="
           $router.push(
-            localeLocation({
-              path: `/feedback/${
+            localePath(
+              `/feedback/${
                 currentSolution.id ? currentSolution.id : 0
-              }/note`,
-              query: { mood: String(mood) },
-            })
+              }/note?mood=${mood}`
+            )
           )
         "
       >

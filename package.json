@@ -1,6 +1,7 @@
 {
   "name": "bep-test-nuxt",
   "version": "1.0.0",
+  "author": "Sebastiaan Benjamins",
   "private": true,
   "scripts": {
     "dev": "nuxt",
