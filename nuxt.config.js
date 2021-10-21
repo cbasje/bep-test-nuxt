@@ -62,14 +62,7 @@ export default {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    // baseUrl: 'https://api.openweathermap.org/data/2.5/',
-    // headers: {
-    //   common: {
-    //     'Access-Control-Allow-Origin': '*',
-    //   },
-    // },
-  },
+  axios: {},
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

@@ -116,6 +116,8 @@ export default Vue.extend({
     }),
   },
   mounted() {
+    console.log('mounted');
+
     this.checkForId()
     this.checkParams()
   },

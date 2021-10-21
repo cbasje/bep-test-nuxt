@@ -100,7 +100,9 @@
       >
         <smile class="w-20 h-20" />
       </NuxtLink>
+    </safe-area-container>
 
+    <safe-area-container>
       <popup v-show="showPopup" :save-button="false">
         <!-- The Nuxt content is all in popups -->
         <Nuxt />
