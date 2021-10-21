@@ -80,7 +80,7 @@
         @click="
           $router.push(
             localePath(
-              `${$device.isDesktop ? '' : '/feedback'}/${
+              `/feedback/${
                 currentSolution.id ? currentSolution.id : 0
               }/note?mood=${mood}`
             )
