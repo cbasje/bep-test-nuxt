@@ -184,6 +184,11 @@ export default Vue.extend({
         this.$router.push(this.localePath('/onboarding'))
 
         this.addNewUser()
+      } else {
+        this.setUser({
+          id: value,
+          name: '',
+        })
       }
     },
     async setStatusBarStyleDark() {
@@ -194,6 +199,7 @@ export default Vue.extend({
     },
     ...mapActions({
       addNewUser: 'user/addNewUser',
+      setUser: 'user/setUser',
       locateUser: 'locateUser',
       loadSquaresFromDatabase: 'squares/loadSquares',
       loadFeedbackFromDatabase: 'feedback/loadFeedback',
