@@ -36,6 +36,9 @@ export const getters: GetterTree<UserState, RootState> = {
   isAuthenticated(state: UserState) {
     return state.isAuthenticated
   },
+  getLocation(state: UserState) {
+    return state.location
+  }
 }
 
 export const actions: ActionTree<UserState, RootState> = {

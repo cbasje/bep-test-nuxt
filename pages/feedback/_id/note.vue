@@ -110,7 +110,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters({
-      location: 'getLocation',
+      userLocation: 'user/getLocation',
       getSolutionById: 'solutions/getSolutionById',
       user: 'user/getUser',
     }),
@@ -153,8 +153,8 @@ export default Vue.extend({
             mood: this.mood,
             note: this.note,
             temp,
-            lat: this.location.lat,
-            lng: this.location.lng,
+            lat: this.userLocation.lat,
+            lng: this.userLocation.lng,
           }
         } else {
           feedbackResponse = {

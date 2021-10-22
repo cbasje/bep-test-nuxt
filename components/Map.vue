@@ -5,9 +5,9 @@
         :zoom="zoom"
         :center="location"
         :options="{ zoomControl: false, attributionControl: false }"
+        @update:zoom="zoomUpdated"
+        @update:center="centerUpdated"
       >
-        <!-- @update:zoom="zoomUpdated"
-        @update:center="centerUpdated" -->
         <l-tile-layer v-if="$colorMode.value == 'dark'" :url="tileUrlDark" />
         <l-tile-layer v-else :url="tileUrl" />
         <!-- TODO -->
@@ -36,7 +36,7 @@
 
         <l-circle-marker
           v-if="!isAdmin"
-          :lat-lng="location"
+          :lat-lng="userLocation"
           color="white"
           fill-color="#F59E0B"
           :fill-opacity="1"
@@ -75,6 +75,7 @@ export default Vue.extend({
     },
     ...mapGetters({
       location: 'getLocation',
+      userLocation: 'user/getLocation',
       zoom: 'getZoom',
       isAdmin: 'user/isAdmin',
       squares: 'squares/getSquares',
@@ -116,12 +117,16 @@ export default Vue.extend({
     getUserLocation() {
       this.locateUser()
     },
-    // zoomUpdated(zoom: number) {
-    //   this.setZoom(zoom)
-    // },
-    // centerUpdated(center: number) {
-    //   this.setLocation(center)
-    // },
+    zoomUpdated(zoom: number) {
+      this.setZoom(zoom)
+      console.log('zoom', zoom);
+
+    },
+    centerUpdated(center: number) {
+      this.setLocation(center)
+      console.log('center', center);
+
+    },
     ...mapActions({
       locateUser: 'locateUser',
     }),

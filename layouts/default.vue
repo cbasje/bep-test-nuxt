@@ -64,7 +64,6 @@
           :is-filled="true"
           @click="
             locateUser()
-            setZoom(17)
           "
         >
           <locate v-if="!isLoadingLocation" />
@@ -199,13 +198,13 @@ export default Vue.extend({
     },
     ...mapActions({
       addNewUser: 'user/addNewUser',
-      setUser: 'user/setUser',
       locateUser: 'locateUser',
       loadSquaresFromDatabase: 'squares/loadSquares',
       loadFeedbackFromDatabase: 'feedback/loadFeedback',
       loadSolutionsFromDatabase: 'solutions/loadSolutions',
     }),
     ...mapMutations({
+      setUser: 'user/setUser',
       setAdmin: 'user/setAdmin',
       setAuthenticated: 'user/setAuthenticated',
       setZoom: 'setZoom',
