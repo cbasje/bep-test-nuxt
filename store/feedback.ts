@@ -35,7 +35,7 @@ export const actions: ActionTree<FeedbackState, RootState> = {
     const location = rootState.location
 
     // const baseUrl = 'https://bep-test-api.herokuapp.com'
-    const baseUrl = 'http://bep-api.benjami.in'
+    const baseUrl = 'https://bep-test-api-vercel.vercel.app/api'
     const url = `${baseUrl}/weather?lat=${location.lat}&lon=${location.lng}&appid=${process.env.VUE_APP_WEATHER}&units=metric&lang=nl`
     console.log(url)
 
