@@ -119,13 +119,9 @@ export default Vue.extend({
     },
     zoomUpdated(zoom: number) {
       this.setZoom(zoom)
-      console.log('zoom', zoom);
-
     },
     centerUpdated(center: number) {
       this.setLocation(center)
-      console.log('center', center);
-
     },
     ...mapActions({
       locateUser: 'locateUser',
