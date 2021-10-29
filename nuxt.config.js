@@ -72,7 +72,10 @@ export default {
     },
     meta: {
       name: 'Heat City Map',
-      ogHost: 'https://bep.benjami.in'
+      ogHost: 'https://bep.benjami.in',
+      ogUrl: 'https://bep.benjami.in',
+      mobileApp: true,
+      mobileAppIOS: true
     }
   },
 
