@@ -2,6 +2,7 @@
   "name": "bep-test-nuxt",
   "version": "1.0.0",
   "author": "Sebastiaan Benjamins",
+  "description": "Discover cool places around you!",
   "private": true,
   "scripts": {
     "dev": "nuxt",

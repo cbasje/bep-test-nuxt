@@ -33,12 +33,12 @@ export default {
     '@nuxtjs/device',
     '@nuxtjs/svg',
     '@nuxtjs/moment',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/dotenv',
-    '@nuxtjs/pwa',
     '@nuxtjs/axios',
     '@nuxtjs/i18n',
     '@nuxtjs/pwa',
@@ -69,14 +69,21 @@ export default {
   pwa: {
     manifest: {
       lang: 'en',
+      name: 'Heat City Map',
+      short_name: 'Heat Map',
+      description: 'Discover cool places around you!',
     },
     meta: {
       name: 'Heat City Map',
+      description: 'Discover cool places around you!',
       ogHost: 'https://bep.benjami.in',
       ogUrl: 'https://bep.benjami.in',
       mobileApp: true,
-      mobileAppIOS: true
-    }
+      mobileAppIOS: true,
+      appleStatusBarStyle: 'black-translucent',
+      favicon: true,
+      theme_color: '#F59E0B',
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
