@@ -39,7 +39,6 @@
             focus:ring-offset-2
             focus:ring-gray-300
           "
-          @click="showSettingsPopup = true"
         >
           <user />
         </NuxtLink>

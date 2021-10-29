@@ -30,7 +30,6 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
-    '@nuxtjs/dotenv',
     '@nuxtjs/device',
     '@nuxtjs/svg',
     '@nuxtjs/moment',
@@ -38,6 +37,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/dotenv',
+    '@nuxtjs/pwa',
     '@nuxtjs/axios',
     '@nuxtjs/i18n',
     '@nuxtjs/pwa',
@@ -69,6 +70,10 @@ export default {
     manifest: {
       lang: 'en',
     },
+    meta: {
+      name: 'Heat City Map',
+      ogHost: 'https://bep.benjami.in'
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
