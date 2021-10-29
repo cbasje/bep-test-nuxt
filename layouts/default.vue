@@ -187,6 +187,8 @@ export default Vue.extend({
           id: value,
           name: '',
         })
+
+        this.locateUser()
       }
     },
     async setStatusBarStyleDark() {

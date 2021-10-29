@@ -17,7 +17,13 @@
     </template>
 
     <template #footer>
-      <popup-button :is-filled="true" @click="$router.push(localePath('/'))">
+      <popup-button
+        :is-filled="true"
+        @click="
+          locateUser();
+          $router.push(localePath('/'))
+        "
+      >
         {{ $t('onboarding.closeButton') }}
       </popup-button>
     </template>
@@ -26,12 +32,18 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import PopupButton from '~/components/PopupButton.vue'
+import { mapActions } from 'vuex'
 
+import PopupButton from '~/components/PopupButton.vue'
 import PopupContent from '~/components/PopupContent.vue'
 import UndrawMap from '~/components/svg/UndrawMap.vue'
 
 export default Vue.extend({
   components: { PopupContent, UndrawMap, PopupButton },
+  methods: {
+    ...mapActions({
+      locateUser: 'locateUser',
+    }),
+  },
 })
 </script>

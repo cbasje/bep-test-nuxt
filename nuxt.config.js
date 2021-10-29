@@ -33,12 +33,9 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/color-mode',
-    '@nuxtjs/device',
     '@nuxtjs/svg',
     '@nuxtjs/moment',
     '@nuxtjs/dotenv',
-    '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -46,6 +43,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/i18n',
     '@nuxtjs/pwa',
+    '@nuxtjs/color-mode',
+    '@nuxtjs/device',
     'nuxt-leaflet',
 
     [
@@ -86,7 +85,6 @@ export default {
       mobileAppIOS: true,
       appleStatusBarStyle: 'black-translucent',
       favicon: true,
-      theme_color: '#F59E0B',
     },
   },
 

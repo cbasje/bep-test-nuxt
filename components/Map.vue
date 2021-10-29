@@ -48,9 +48,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 import { FeedbackResponse, Mood } from '~/types/feedback-response'
+import { Square } from '~/types/square'
 
 export default Vue.extend({
   data() {
@@ -83,9 +84,6 @@ export default Vue.extend({
       solutions: 'solutions/getSolutions',
     }),
   },
-  mounted() {
-    this.getUserLocation()
-  },
   methods: {
     clickFeedback(response: FeedbackResponse) {
       const currentTimestamp = Date.now()
@@ -96,11 +94,12 @@ export default Vue.extend({
     alertClickFeedback(response: FeedbackResponse) {
       this.$router.push(this.localePath(`/feedback/view/${response.id}`))
     },
-    // clickSquare(square: Square) {
-    //   const currentTimestamp = Date.now()
-    //   if (currentTimestamp - this.timestamp > 100) this.alertClickSquare(square)
-    //   this.timestamp = Date.now()
-    // },
+    clickSquare(square: Square) {
+      //   const currentTimestamp = Date.now()
+      //   if (currentTimestamp - this.timestamp > 100) this.alertClickSquare(square)
+      //   this.timestamp = Date.now()
+      console.log(square)
+    },
     // alertClickSquare(square: Square) {
     //   alert(`Clicked square ${square.name}!`)
     // },
@@ -114,18 +113,12 @@ export default Vue.extend({
           return '#007AFF'
       }
     },
-    getUserLocation() {
-      this.locateUser()
-    },
     zoomUpdated(zoom: number) {
       this.setZoom(zoom)
     },
     centerUpdated(center: number) {
       this.setLocation(center)
     },
-    ...mapActions({
-      locateUser: 'locateUser',
-    }),
     ...mapMutations({
       setZoom: 'setZoom',
       setLocation: 'setLocation',
