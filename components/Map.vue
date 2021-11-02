@@ -105,12 +105,16 @@ export default Vue.extend({
     // },
     moodColor(mood: Mood): string {
       switch (mood) {
-        case Mood.WARMER:
-          return '#F3573B'
+        case Mood.COLD:
+          return '#3B82F6'
+        case Mood.COOL:
+          return '#81C7F9'
         case Mood.NEUTRAL:
-          return '#F6BF42'
-        case Mood.COLDER:
-          return '#007AFF'
+          return '#FBBF24'
+        case Mood.WARM:
+          return '#F59172'
+        case Mood.HOT:
+          return '#EF4444'
       }
     },
     zoomUpdated(zoom: number) {

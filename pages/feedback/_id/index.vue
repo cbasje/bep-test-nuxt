@@ -48,7 +48,7 @@
                 v-model="mood"
                 type="range"
                 min="1"
-                max="3"
+                max="5"
                 class="w-full"
               />
               <div
@@ -114,19 +114,31 @@ export default Vue.extend({
         {
           id: 1,
           name: this.$t('feedback.moodOptions.cold'),
-          value: Mood.COLDER,
+          value: Mood.COLD,
           emoji: '🥶',
         },
         {
           id: 2,
+          name: this.$t('feedback.moodOptions.cool'),
+          value: Mood.COOL,
+          emoji: '☹️',
+        },
+        {
+          id: 3,
           name: this.$t('feedback.moodOptions.neutral'),
           value: Mood.NEUTRAL,
           emoji: '😐',
         },
         {
-          id: 3,
+          id: 4,
+          name: this.$t('feedback.moodOptions.warm'),
+          value: Mood.WARM,
+          emoji: '😎',
+        },
+        {
+          id: 5,
           name: this.$t('feedback.moodOptions.hot'),
-          value: Mood.WARMER,
+          value: Mood.HOT,
           emoji: '🥵',
         },
       ],

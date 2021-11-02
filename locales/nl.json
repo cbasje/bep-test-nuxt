@@ -21,8 +21,10 @@
     "question": "Heb je het warm of koud op deze plek?",
     "moodOptions": {
       "cold": "Koud",
+      "cool": "Koel",
       "neutral": "Neutraal",
-      "hot": "Warm"
+      "warm": "Warm",
+      "hot": "Hot"
     },
     "note": "Notitie",
     "noteQuestion": "Wat vind je niet goed aan deze plek? Of wat vind je wel goed?",

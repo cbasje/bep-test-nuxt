@@ -61,9 +61,7 @@
             focus:ring-gray-300
           "
           :is-filled="true"
-          @click="
-            locateUser()
-          "
+          @click="locateUser()"
         >
           <locate v-if="!isLoadingLocation" />
           <loader v-else class="animate-spin" />
@@ -178,17 +176,17 @@ export default Vue.extend({
     async checkForOnboarding() {
       const { value } = await Storage.get({ key: 'userId' })
 
-      if (value == null) {
-        this.$router.push(this.localePath('/onboarding'))
-
-        this.addNewUser()
-      } else {
+      if (value != null && value !== 'undefined') {
         this.setUser({
           id: value,
           name: '',
         })
 
         this.locateUser()
+      } else {
+        this.$router.push(this.localePath('/onboarding'))
+
+        this.addNewUser()
       }
     },
     async setStatusBarStyleDark() {

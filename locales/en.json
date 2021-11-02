@@ -21,7 +21,9 @@
     "question": "Are you cold or hot at this place?",
     "moodOptions": {
       "cold": "Cold",
+      "cool": "Cool",
       "neutral": "Neutral",
+      "warm": "Warm",
       "hot": "Hot"
     },
     "note": "Add note",

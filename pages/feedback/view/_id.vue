@@ -45,12 +45,16 @@ export default Vue.extend({
     },
     moodEmoji(mood: Mood): string {
       switch (mood) {
-        case Mood.WARMER:
-          return '🥵'
+        case Mood.COLD:
+          return '🥶'
+        case Mood.COOL:
+          return '☹️'
         case Mood.NEUTRAL:
           return '😐'
-        case Mood.COLDER:
-          return '🥶'
+        case Mood.WARM:
+          return '😎'
+        case Mood.HOT:
+          return '🥵'
       }
     },
   },

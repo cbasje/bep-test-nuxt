@@ -1,7 +1,9 @@
 export enum Mood {
-  WARMER = 3,
-  NEUTRAL = 2,
-  COLDER = 1,
+  COLD = 1,
+  COOL = 2,
+  NEUTRAL = 3,
+  WARM = 4,
+  HOT = 5,
 }
 
 export interface FeedbackResponse {
