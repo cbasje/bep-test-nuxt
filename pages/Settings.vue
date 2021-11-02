@@ -76,13 +76,22 @@
           v-html="$t('settings.mapAttribution')"
         />
       </div>
+
+      <!-- <CarbonBadge></CarbonBadge> -->
+      <div
+        id="wcb"
+        :class="['carbonbadge', $colorMode.value == 'dark' ? 'wcb-d' : '']"
+      />
+      <script
+        src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js"
+        defer
+      />
     </template>
   </popup-content>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-// import { LocaleObject } from '@nuxtjs/i18n'
 
 import { StatusBar, Style } from '@capacitor/status-bar'
 
