@@ -35,8 +35,7 @@ export const actions: ActionTree<FeedbackState, RootState> = {
     const location = rootState.location
 
     // const baseUrl = 'https://bep-test-api.herokuapp.com/weather'
-    // const baseUrl = 'https://bep-test-api-vercel.vercel.app/api'
-    const baseUrl = '/api'
+    const baseUrl = 'https://bep-test-api-vercel.vercel.app/api'
     const url = `${baseUrl}?lat=${location.lat}&lon=${location.lng}&appid=${process.env.VUE_APP_WEATHER}&units=metric&lang=nl`
 
     const { main } = await this.$axios.$get(url)
