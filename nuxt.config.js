@@ -66,10 +66,7 @@ export default {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
-    baseUrl: 'bep.benjami.in',
-    https: true
-  },
+  axios: {},
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
