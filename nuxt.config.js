@@ -56,10 +56,6 @@ export default {
     ],
   ],
 
-  serverMiddleware: [
-    { path: '/api', handler: '~/middleware-server/vercel' },
-  ],
-
   env: {
     VUE_APP_SUPABASE_URL: 'https://euyaospnwgppzjrgidjj.supabase.co',
     VUE_APP_SUPABASE_KEY:
