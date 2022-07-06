@@ -21,7 +21,7 @@
     "@capacitor/geolocation": "^1.1.0",
     "@capacitor/ios": "^3.2.4",
     "@capacitor/status-bar": "^1.0.3",
-    "@capacitor/storage": "^1.2.2",
+    "@capacitor/storage": "^1.2.5",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/i18n": "^7.1.0",
     "@nuxtjs/pwa": "^3.3.5",
