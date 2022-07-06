@@ -38,7 +38,7 @@
     "@babel/eslint-parser": "^7.14.7",
     "@nuxt/types": "^2.15.8",
     "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/color-mode": "^2.1.1",
+    "@nuxtjs/color-mode": "^3.1.4",
     "@nuxtjs/device": "^2.1.0",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/eslint-config-typescript": "^6.0.1",
@@ -50,7 +50,7 @@
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-vue": "^7.12.1",
+    "eslint-plugin-vue": "^9.2.0",
     "postcss": "^8.3.5",
     "prettier": "^2.3.2"
   }
